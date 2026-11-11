@@ -2,7 +2,7 @@
 import Base from '../layouts/Base.astro';
 import PageHero from '../components/PageHero.astro';
 import SectionHead from '../components/SectionHead.astro';
-import { t, type Lang, REPO, RELEASES } from '../i18n/strings';
+import { t, type Lang, REPO, RELEASES, APPIMAGE_URL, APPIMAGE_CMD, FLATPAK_CMD } from '../i18n/strings';
 interface Props { lang: Lang; }
 const { lang } = Astro.props;
 const s = t[lang];
@@ -11,7 +11,8 @@ const c = s.controller;
 <Base lang={lang} page="controller" title={c.meta.title} description={c.meta.description}>
   <PageHero label={c.label} title={c.title} lead={c.lead}>
     <div class="btns">
-      <a class="btn primary" href={RELEASES}>{c.download}</a>
+      <a class="btn primary" href={APPIMAGE_URL}>{c.download}</a>
+      <a class="btn" href="#baixar">{c.flatpakJump}</a>
       <a class="btn" href={REPO}>{c.github}</a>
     </div>
     <p class="muted note">{c.note}</p>
@@ -32,13 +33,21 @@ const c = s.controller;
   <section class="sec" id="baixar">
     <div class="wrap">
       <SectionHead label={c.downloadHead.label} hint={c.downloadHead.hint} />
-      <div class="card" style="overflow-x:auto">
-        <table>
-          <thead><tr><th scope="col">{c.table.file}</th><th scope="col">{c.table.for}</th></tr></thead>
-          <tbody>{c.files.map(([file, text]) => <tr><td><strong>{file}</strong></td><td class="muted">{text}</td></tr>)}</tbody>
-        </table>
+      <div class="grid2">
+        <div class="card dl">
+          <div class="tags"><span class="tag tag-live">{c.appimage.badge}</span></div>
+          <h3>{c.appimage.title}</h3>
+          <p class="muted">{c.appimage.text}</p>
+          <div class="cmd"><code>{APPIMAGE_CMD}</code><button type="button" class="copy" data-copy={APPIMAGE_CMD} data-done={c.copied}>{c.copy}</button></div>
+          <a class="btn primary" href={APPIMAGE_URL}>{c.appimage.cta}</a>
+        </div>
+        <div class="card dl">
+          <h3>{c.flatpak.title}</h3>
+          <p class="muted">{c.flatpak.text}</p>
+          <div class="cmd"><code>{FLATPAK_CMD}</code><button type="button" class="copy" data-copy={FLATPAK_CMD} data-done={c.copied}>{c.copy}</button></div>
+        </div>
       </div>
-      <div class="btns"><a class="btn primary" href={RELEASES}>{c.download}</a></div>
+      <a class="arrow" href={RELEASES} style="margin-top:20px">{c.others} →</a>
       <p class="muted" style="margin-top:20px">{c.verify} <code>3D97 1657 2A39 8DCD D0CF F0EE 733D 2EC7 8436 DCE8</code></p>
     </div>
   </section>
@@ -51,4 +60,13 @@ const c = s.controller;
       </div>
     </div>
   </section>
+  <script>
+    // Copy buttons for the terminal commands (no tracking, nothing sent anywhere).
+    document.querySelectorAll<HTMLButtonElement>('button.copy').forEach((b) => {
+      const label = b.textContent;
+      b.addEventListener('click', async () => {
+        try { await navigator.clipboard.writeText(b.dataset.copy ?? ''); b.textContent = b.dataset.done ?? label; setTimeout(() => (b.textContent = label), 1800); } catch { /* clipboard blocked: the command stays selectable */ }
+      });
+    });
+  </script>
 </Base>

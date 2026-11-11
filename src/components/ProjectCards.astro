@@ -1,5 +1,5 @@
 ---
-import { t, paths, type Lang, RELEASES, ORG } from '../i18n/strings';
+import { t, paths, type Lang, APPIMAGE_URL, ORG } from '../i18n/strings';
 interface Props { lang: Lang; }
 const { lang } = Astro.props;
 const s = t[lang];
@@ -16,7 +16,7 @@ const n = s.projectsList.next;
       <p class="muted">{c.text}</p>
       <div class="btns">
         <a class="btn primary" href={paths[lang].controller}>{c.more}</a>
-        <a class="btn" href={RELEASES}>{c.download}</a>
+        <a class="btn" href={APPIMAGE_URL}>{c.download}</a>
       </div>
     </div>
   </article>

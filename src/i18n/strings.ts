@@ -10,6 +10,12 @@ export const EMAIL = 'ilmenyx.technology@gmail.com';
 export const PIX = 'ad7075cc-cca1-4f12-9e11-f0d10890456a';
 export const ISSUES = `${REPO}/issues/new/choose`;
 export const UNTESTED = `${REPO}/blob/main/Sem_teste.md`;
+// Fixed-name copies attached to every release, so these always point at the newest version.
+export const LATEST = `${REPO}/releases/latest/download`;
+export const APPIMAGE_URL = `${LATEST}/Ilmenyx-Controller-x86_64.AppImage`;
+export const FLATPAK_URL = `${LATEST}/Ilmenyx-Controller-x86_64.flatpak`;
+export const APPIMAGE_CMD = `chmod +x Ilmenyx-Controller-x86_64.AppImage && ./Ilmenyx-Controller-x86_64.AppImage`;
+export const FLATPAK_CMD = `curl -LO ${FLATPAK_URL} && flatpak install --user Ilmenyx-Controller-x86_64.flatpak`;
 
 /** Address of each page in each language (the header switch keeps the reader on the same page). */
 export const paths: Record<Lang, Record<Page, string>> = {
@@ -71,7 +77,7 @@ export const t = {
         status: 'Pré-lançamento', platform: 'Linux · x86_64', langs: 'PT · EN · ES',
         name: 'Ilmenyx Controller',
         text: 'Diagnóstico, monitoramento e benchmark de hardware para Linux, com ferramentas para jogos: estimativa de FPS, "por que o jogo não abre?", instalação de jogos de Windows e correções reversíveis.',
-        more: 'Ver o projeto', download: 'Downloads',
+        more: 'Ver o projeto', download: 'Baixar AppImage',
         shotAlt: 'Visão geral do Ilmenyx Controller mostrando CPU, GPU, memória e atividade',
       },
       next: { status: 'Em breve', name: 'Próximos projetos', text: 'Novas ferramentas, serviços e jogos estão no caminho. Acompanhe a organização no GitHub para ver primeiro.', more: 'Seguir no GitHub' },
@@ -108,7 +114,7 @@ export const t = {
       meta: { title: 'Ilmenyx Controller — diagnóstico e benchmark de hardware para Linux', description: 'App gratuito para Linux: sensores, GPU, discos, benchmarks, estimativa de FPS e ferramentas para jogos. Português, inglês e espanhol.' },
       label: 'Ilmenyx Controller', title: 'Entenda o seu PC com Linux. E faça os jogos rodarem.',
       lead: 'Diagnóstico, monitoramento e benchmark de hardware, com ferramentas para jogos, num app só. Gratuito, sem telemetria, em português, inglês e espanhol.',
-      download: 'Ver downloads', github: 'Código e documentação',
+      download: 'Baixar AppImage', flatpakJump: 'Instalar com Flatpak', github: 'Código e documentação',
       note: 'Pré-lançamento: validado em hardware real (Intel Iris Xe, AMD Radeon 610M, NVIDIA GeForce 940MX), mas ainda não em todas as distros e placas de vídeo.',
       featuresHead: { label: '01 / Funções', hint: 'Num app só' },
       features: [
@@ -127,12 +133,10 @@ export const t = {
         ['visao-geral-claro.png', 'Visão geral no tema claro'],
       ],
       downloadHead: { label: '03 / Baixar', hint: 'Assinado com GPG' },
-      table: { file: 'Arquivo', for: 'Para quem' },
-      files: [
-        ['AppImage', 'Recomendado. Um arquivo só, sem instalar: dê permissão de execução e abra. Todos os recursos.'],
-        ['Flatpak', 'Para quem prefere Flatpak: na pasta do arquivo baixado, rode flatpak install --user Ilmenyx-Controller-*.flatpak. Alguns recursos ainda não foram testados nele.'],
-        ['.tar.gz', 'Pacote em pasta, para técnicos.'],
-      ],
+      appimage: { title: 'AppImage', badge: 'Recomendado', text: 'Um arquivo só, sem instalar nada, com todos os recursos. Depois de baixar, dê permissão de execução e abra:', cta: 'Baixar AppImage' },
+      flatpak: { title: 'Flatpak', text: 'Para quem prefere instalar pelo Flatpak. Cole no terminal: o comando baixa a versão mais recente e instala só no seu usuário. Alguns recursos ainda não foram testados no Flatpak.' },
+      copy: 'Copiar', copied: 'Copiado',
+      others: 'Pacote em pasta (.tar.gz), versões anteriores e notas de cada versão',
       verify: 'Cada arquivo vem com soma SHA-256 e assinatura GPG. Impressão digital da chave:',
       promisesHead: { label: '04 / Sem surpresas', hint: 'Licença e garantias' },
       promises: [
@@ -222,7 +226,7 @@ export const t = {
         status: 'Pre-release', platform: 'Linux · x86_64', langs: 'EN · PT · ES',
         name: 'Ilmenyx Controller',
         text: 'Hardware diagnostics, monitoring and benchmarking for Linux, with gaming tools: FPS estimates, "why won\'t the game start?", Windows game installs and reversible fixes.',
-        more: 'See the project', download: 'Downloads',
+        more: 'See the project', download: 'Download AppImage',
         shotAlt: 'Ilmenyx Controller overview showing CPU, GPU, memory and activity',
       },
       next: { status: 'Coming soon', name: 'Next projects', text: 'New tools, services and games are on the way. Follow the organization on GitHub to see them first.', more: 'Follow on GitHub' },
@@ -259,7 +263,7 @@ export const t = {
       meta: { title: 'Ilmenyx Controller — hardware diagnostics and benchmarks for Linux', description: 'Free Linux app: sensors, GPU, disks, benchmarks, FPS estimates and gaming tools. English, Portuguese and Spanish.' },
       label: 'Ilmenyx Controller', title: 'Understand your Linux PC. And get your games running.',
       lead: 'Hardware diagnostics, monitoring and benchmarking, plus gaming tools, in one app. Free, no telemetry, in English, Portuguese and Spanish.',
-      download: 'View downloads', github: 'Code and documentation',
+      download: 'Download AppImage', flatpakJump: 'Install with Flatpak', github: 'Code and documentation',
       note: 'Pre-release: validated on real hardware (Intel Iris Xe, AMD Radeon 610M, NVIDIA GeForce 940MX), but not yet on every distro and graphics card.',
       featuresHead: { label: '01 / Features', hint: 'In one app' },
       features: [
@@ -278,12 +282,10 @@ export const t = {
         ['visao-geral-claro.png', 'Overview in the light theme'],
       ],
       downloadHead: { label: '03 / Download', hint: 'GPG-signed' },
-      table: { file: 'File', for: 'For' },
-      files: [
-        ['AppImage', 'Recommended. A single file, nothing to install: make it executable and open it. Every feature.'],
-        ['Flatpak', 'If you prefer Flatpak: in the folder with the downloaded file, run flatpak install --user Ilmenyx-Controller-*.flatpak. Some features haven\'t been tested in it yet.'],
-        ['.tar.gz', 'Plain folder package, for technical users.'],
-      ],
+      appimage: { title: 'AppImage', badge: 'Recommended', text: 'A single file, nothing to install, every feature. After downloading, make it executable and open it:', cta: 'Download AppImage' },
+      flatpak: { title: 'Flatpak', text: 'If you prefer installing through Flatpak. Paste it in a terminal: the command downloads the newest version and installs it for your user only. Some features haven\'t been tested in Flatpak yet.' },
+      copy: 'Copy', copied: 'Copied',
+      others: 'Folder package (.tar.gz), previous versions and release notes',
       verify: 'Every file comes with a SHA-256 checksum and a GPG signature. Key fingerprint:',
       promisesHead: { label: '04 / No surprises', hint: 'License and guarantees' },
       promises: [
