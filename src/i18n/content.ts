@@ -27,6 +27,7 @@ export const content = {
     ],
     vms: 'O pacote também foi conferido em máquinas virtuais com Ubuntu 24.04, Debian 13, Fedora 44, openSUSE Tumbleweed e Arch Linux.',
     news: [
+      { date: '11 nov. 2026', tag: 'Ilmenyx Controller 0.33.1', title: 'Agora ele se atualiza sozinho', text: 'Quando sair uma versão nova, um clique baixa, confere a assinatura e instala. Quem já usa o Ilmenyx atualiza à mão só esta última vez.' },
       { date: '11 nov. 2026', tag: 'Ilmenyx Controller 0.33', title: 'Útil também no dia a dia', text: 'Uma primeira tela simples que diz se o PC está bem, processos como num monitor do sistema (com Encerrar), sensores e discos explicados para quem está começando, formatar pendrive e uma página para liberar espaço com segurança.' },
       { date: '11 nov. 2026', tag: 'Ilmenyx Controller 0.32', title: 'Código aberto e avisos inteligentes', text: 'O código agora está aberto no GitHub. O app pode ficar na área de notificação, avisar quando a CPU esquentar de verdade e quando sair uma versão nova. Tudo opcional.' },
       { date: '11 nov. 2026', tag: 'Ilmenyx Technology', title: 'Nasce o site da Ilmenyx', text: 'Um lugar para reunir os nossos projetos, as novidades e as formas de ajudar.' },
@@ -63,7 +64,7 @@ export const content = {
       { date: '07 nov. 2026', title: 'v0.30', text: 'Primeira versão de teste, com pacotes AppImage, Flatpak e assinatura GPG.' },
       { date: '10 nov. 2026', title: 'v0.31', text: 'Nasce o Ilmenyx Controller: três idiomas, nova estimativa de FPS e um app mais leve.' },
       { date: '11 nov. 2026', title: 'v0.32', text: 'Código aberto. Área de notificação, aviso de CPU quente e de versão nova.' },
-      { date: '11 nov. 2026', title: 'v0.33', text: 'Modo simples, processos, sensores e discos para leigos, partições e limpeza de espaço.' },
+      { date: '11 nov. 2026', title: 'v0.33', text: 'Modo simples, processos, sensores e discos para leigos, partições e limpeza de espaço. Na 0.33.1, atualização pelo próprio app.' },
     ],
     next: { status: 'Em breve', name: 'Mais por vir', text: 'O Controller é o primeiro. Quando houver novidade, ela aparece aqui.', more: 'Acompanhar no GitHub' },
   },
@@ -89,6 +90,7 @@ export const content = {
     ],
     vms: 'The package was also checked in virtual machines running Ubuntu 24.04, Debian 13, Fedora 44, openSUSE Tumbleweed and Arch Linux.',
     news: [
+      { date: 'Nov 11, 2026', tag: 'Ilmenyx Controller 0.33.1', title: 'Now it updates itself', text: 'When a new version is out, one click downloads it, checks the signature and installs it. Current users update by hand just this last time.' },
       { date: 'Nov 11, 2026', tag: 'Ilmenyx Controller 0.33', title: 'Useful day to day too', text: 'A simple first screen that tells you whether the PC is fine, processes like a system monitor (with End), sensors and disks explained for beginners, USB stick formatting and a page to free up space safely.' },
       { date: 'Nov 11, 2026', tag: 'Ilmenyx Controller 0.32', title: 'Open source and smarter alerts', text: 'The code is now open on GitHub. The app can live in the notification area, warn you when the CPU really heats up and when a new version is out. All optional.' },
       { date: 'Nov 11, 2026', tag: 'Ilmenyx Technology', title: 'The Ilmenyx website is born', text: 'One place for our projects, updates and ways to help.' },
@@ -125,7 +127,7 @@ export const content = {
       { date: 'Nov 7, 2026', title: 'v0.30', text: 'First test release, with AppImage and Flatpak packages and GPG signatures.' },
       { date: 'Nov 10, 2026', title: 'v0.31', text: 'Ilmenyx Controller is born: three languages, a new FPS estimate and a lighter app.' },
       { date: 'Nov 11, 2026', title: 'v0.32', text: 'Open source. Notification area, hot CPU and new version alerts.' },
-      { date: 'Nov 11, 2026', title: 'v0.33', text: 'Simple mode, processes, sensors and disks for beginners, partitions and space cleanup.' },
+      { date: 'Nov 11, 2026', title: 'v0.33', text: 'Simple mode, processes, sensors and disks for beginners, partitions and space cleanup. In 0.33.1, in-app updates.' },
     ],
     next: { status: 'Coming soon', name: 'More to come', text: 'Controller is the first one. When there is news, it shows up here.', more: 'Follow on GitHub' },
   },
