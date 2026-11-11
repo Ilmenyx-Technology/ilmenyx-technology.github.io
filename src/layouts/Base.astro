@@ -1,13 +1,17 @@
 ---
 import '../styles/global.css';
-import { t, type Lang, ORG, REPO, EMAIL } from '../i18n/strings';
+import { t, paths, type Lang, type Page } from '../i18n/strings';
 
-interface Props { lang: Lang; title: string; description: string; alternate: string; }
-const { lang, title, description, alternate } = Astro.props;
+interface Props { lang: Lang; page: Page; title: string; description: string; }
+const { lang, page, title, description } = Astro.props;
 const s = t[lang];
+const other: Lang = lang === 'pt' ? 'en' : 'pt';
+const p = paths[lang];
 const canonical = new URL(Astro.url.pathname, Astro.site);
-const altUrl = new URL(alternate, Astro.site);
-const home = s.home;
+const altUrl = new URL(paths[other][page], Astro.site);
+const link = (target: string) => (target in p ? p[target as Page] : target);
+const navItems: [Page, string][] = [['about', s.nav.about], ['projects', s.nav.projects], ['support', s.nav.support], ['contact', s.nav.contact]];
+const current = (key: Page) => key === page || (key === 'projects' && page === 'controller');
 ---
 <!doctype html>
 <html lang={s.htmlLang}>
@@ -18,8 +22,9 @@ const home = s.home;
   <meta name="description" content={description} />
   <link rel="canonical" href={canonical} />
   <link rel="alternate" hreflang={lang === 'pt' ? 'pt-BR' : 'en'} href={canonical} />
-  <link rel="alternate" hreflang={lang === 'pt' ? 'en' : 'pt-BR'} href={altUrl} />
+  <link rel="alternate" hreflang={other === 'pt' ? 'pt-BR' : 'en'} href={altUrl} />
   <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Ilmenyx Technology" />
   <meta property="og:title" content={title} />
   <meta property="og:description" content={description} />
   <meta property="og:url" content={canonical} />
@@ -36,29 +41,33 @@ const home = s.home;
   <a class="skip" href="#conteudo">{s.skip}</a>
   <header class="top">
     <div class="wrap">
-      <a class="brand" href={home} aria-label="Ilmenyx Technology"><img src="/img/horizontal-fundo-escuro.svg" alt="Ilmenyx Technology" width="94" height="34" /></a>
-      <nav class="nav" aria-label={lang === 'pt' ? 'Principal' : 'Main'}>
-        <a href={`${home}#marca`}>{s.nav.brand}</a>
-        <a href={`${home}#produtos`}>{s.nav.products}</a>
-        <a href={`${home}#principios`}>{s.nav.principles}</a>
-        <a href={`${home}#apoie`}>{s.nav.support}</a>
-        <a href={`${home}#contato`}>{s.nav.contact}</a>
-        <a class="lang" href={alternate} hreflang={lang === 'pt' ? 'en' : 'pt-BR'} lang={lang === 'pt' ? 'en' : 'pt-BR'} aria-label={s.other.name}>{s.other.label}</a>
+      <a class="brand" href={p.home} aria-label="Ilmenyx Technology"><img src="/img/horizontal-fundo-escuro.svg" alt="Ilmenyx Technology" width="105" height="38" /></a>
+      <nav class="nav" aria-label={s.nav.main}>
+        {navItems.map(([key, label]) => <a href={p[key]} aria-current={current(key) ? 'page' : undefined}>{label}</a>)}
+        <a class="lang" href={paths[other][page]} hreflang={other === 'pt' ? 'pt-BR' : 'en'} lang={other === 'pt' ? 'pt-BR' : 'en'} aria-label={s.switchName}>{s.switchLabel}</a>
       </nav>
     </div>
   </header>
   <main id="conteudo">
     <slot />
   </main>
-  <footer>
-    <div class="wrap">
-      <img src="/img/horizontal-fundo-escuro.svg" alt="Ilmenyx Technology" width="83" height="30" />
-      <nav aria-label={lang === 'pt' ? 'Rodapé' : 'Footer'}>
-        <a href={ORG}>GitHub</a>
-        <a href={REPO}>Ilmenyx Controller</a>
-        <a href={`mailto:${EMAIL}`}>{EMAIL}</a>
-      </nav>
-      <p style="margin:0">© {new Date().getFullYear()} {s.footer.rights} · {s.footer.privacy}</p>
+  <footer class="foot">
+    <div class="wrap foot-grid">
+      <div class="foot-brand">
+        <img src="/img/horizontal-fundo-escuro.svg" alt="Ilmenyx Technology" width="132" height="48" />
+        <p>{s.footer.blurb}</p>
+        <p class="tagline">{lang === 'pt' ? 'Estrutura para criar. Liberdade para explorar.' : 'Structure to create. Freedom to explore.'}</p>
+      </div>
+      {s.footer.cols.map((col) => (
+        <nav aria-label={col.title}>
+          <p class="foot-title">{col.title}</p>
+          <ul>{col.links.map(([label, target]) => <li><a href={link(target)}>{label}</a></li>)}</ul>
+        </nav>
+      ))}
+    </div>
+    <div class="wrap foot-bottom">
+      <span>© {new Date().getFullYear()} Ilmenyx Technology</span>
+      <span>{s.footer.privacy}</span>
     </div>
   </footer>
 </body>

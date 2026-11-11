@@ -1,0 +1,31 @@
+---
+import { t, paths, type Lang, RELEASES, ORG } from '../i18n/strings';
+interface Props { lang: Lang; }
+const { lang } = Astro.props;
+const s = t[lang];
+const c = s.projectsList.controller;
+const n = s.projectsList.next;
+---
+<div class="lineup">
+  <article class="card project">
+    <div class="project-shot"><img src={`${s.shotDir}visao-geral.png`} alt={c.shotAlt} width="1279" height="774" loading="lazy" /></div>
+    <div class="project-body">
+      <p class="project-num mono">01</p>
+      <div class="tags"><span class="tag tag-live">{c.status}</span><span class="tag">{c.platform}</span><span class="tag">{c.langs}</span></div>
+      <h3 class="project-name">Ilmenyx <span class="oxide-text">Controller</span></h3>
+      <p class="muted">{c.text}</p>
+      <div class="btns">
+        <a class="btn primary" href={paths[lang].controller}>{c.more}</a>
+        <a class="btn" href={RELEASES}>{c.download}</a>
+      </div>
+    </div>
+  </article>
+  <article class="card project-next">
+    <p class="project-num mono">02</p>
+    <div class="ghost-gem" aria-hidden="true"></div>
+    <div class="tags"><span class="tag">{n.status}</span></div>
+    <h3>{n.name}</h3>
+    <p class="muted">{n.text}</p>
+    <a class="arrow" href={ORG}>{n.more} →</a>
+  </article>
+</div>

@@ -1,0 +1,54 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import SectionHead from '../components/SectionHead.astro';
+import { t, type Lang, REPO, RELEASES } from '../i18n/strings';
+interface Props { lang: Lang; }
+const { lang } = Astro.props;
+const s = t[lang];
+const c = s.controller;
+---
+<Base lang={lang} page="controller" title={c.meta.title} description={c.meta.description}>
+  <PageHero label={c.label} title={c.title} lead={c.lead}>
+    <div class="btns">
+      <a class="btn primary" href={RELEASES}>{c.download}</a>
+      <a class="btn" href={REPO}>{c.github}</a>
+    </div>
+    <p class="muted note">{c.note}</p>
+    <img class="hero-shot" src={`${s.shotDir}visao-geral.png`} alt={s.projectsList.controller.shotAlt} width="1279" height="774" />
+  </PageHero>
+  <section class="sec">
+    <div class="wrap">
+      <SectionHead label={c.featuresHead.label} hint={c.featuresHead.hint} />
+      <div class="grid3">{c.features.map(([title, text], i) => <div class="card feature"><span class="mono feature-n">{String(i + 1).padStart(2, '0')}</span><h3>{title}</h3><p class="muted">{text}</p></div>)}</div>
+    </div>
+  </section>
+  <section class="sec">
+    <div class="wrap">
+      <SectionHead label={c.galleryHead.label} hint={c.galleryHead.hint} />
+      <div class="gallery">{c.shots.map(([file, alt]) => <figure><img src={`${s.shotDir}${file}`} alt={alt} width="1279" height="774" loading="lazy" /><figcaption>{alt}</figcaption></figure>)}</div>
+    </div>
+  </section>
+  <section class="sec" id="baixar">
+    <div class="wrap">
+      <SectionHead label={c.downloadHead.label} hint={c.downloadHead.hint} />
+      <div class="card" style="overflow-x:auto">
+        <table>
+          <thead><tr><th scope="col">{c.table.file}</th><th scope="col">{c.table.for}</th></tr></thead>
+          <tbody>{c.files.map(([file, text]) => <tr><td><strong>{file}</strong></td><td class="muted">{text}</td></tr>)}</tbody>
+        </table>
+      </div>
+      <div class="btns"><a class="btn primary" href={RELEASES}>{c.download}</a></div>
+      <p class="muted" style="margin-top:20px">{c.verify} <code>3D97 1657 2A39 8DCD D0CF F0EE 733D 2EC7 8436 DCE8</code></p>
+    </div>
+  </section>
+  <section class="sec">
+    <div class="wrap">
+      <SectionHead label={c.promisesHead.label} hint={c.promisesHead.hint} />
+      <div class="grid2">
+        <ul class="feature-list">{c.promises.map((x) => <li>{x}</li>)}</ul>
+        <p class="muted">{c.license}</p>
+      </div>
+    </div>
+  </section>
+</Base>

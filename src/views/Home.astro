@@ -1,0 +1,73 @@
+---
+import Base from '../layouts/Base.astro';
+import HeroCrystal from '../components/HeroCrystal.astro';
+import SectionHead from '../components/SectionHead.astro';
+import ProjectCards from '../components/ProjectCards.astro';
+import { t, paths, type Lang, ISSUES } from '../i18n/strings';
+interface Props { lang: Lang; }
+const { lang } = Astro.props;
+const s = t[lang];
+const h = s.home;
+const p = paths[lang];
+---
+<Base lang={lang} page="home" title={h.meta.title} description={h.meta.description}>
+  <HeroCrystal lang={lang} title={h.hero.title} lead={h.hero.lead}
+    primary={{ label: h.hero.primary, href: p.projects }} secondary={{ label: h.hero.secondary, href: p.about }} />
+
+  <section class="sec">
+    <div class="wrap">
+      <SectionHead label={h.projects.label} hint={h.projects.hint} />
+      <div class="sec-intro"><h2>{h.projects.title}</h2><p class="lead">{h.projects.lead}</p></div>
+      <ProjectCards lang={lang} />
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="wrap">
+      <SectionHead label={h.principles.label} hint={h.principles.hint} />
+      <h2>{h.principles.title}</h2>
+      <div class="principles">
+        {s.principles.map((x) => (
+          <div class="principle" style={`--c:${x.color}`}>
+            <span class="principle-n mono">{x.n}</span>
+            <span class="principle-gem" aria-hidden="true"></span>
+            <h3>{x.title}</h3><p>{x.text}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="wrap">
+      <SectionHead label={h.numbers.label} hint={h.numbers.hint} />
+      <h2>{h.numbers.title}</h2>
+      <div class="numbers">
+        {s.numbers.map((x) => <div class="number"><span class="number-value oxide-text">{x.value}</span><span class="number-label">{x.label}</span></div>)}
+      </div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="wrap brand-teaser">
+      <div>
+        <SectionHead label={h.brand.label} hint={h.brand.hint} />
+        <h2>{h.brand.title}</h2>
+        <p class="lead">{h.brand.text}</p>
+        <a class="arrow" href={p.about}>{h.brand.more} →</a>
+      </div>
+      <div class="steps" aria-hidden="true">{[3, 5, 7, 9, 7, 5, 3].map((n, i) => <span style={`--h:${n * 10}%;--i:${i}`}></span>)}</div>
+    </div>
+  </section>
+
+  <section class="sec join">
+    <div class="wrap join-box">
+      <h2>{h.join.title}</h2>
+      <p class="lead">{h.join.text}</p>
+      <div class="btns" style="justify-content:center">
+        <a class="btn primary" href={ISSUES}>{h.join.primary}</a>
+        <a class="btn" href={p.support}>{h.join.secondary}</a>
+      </div>
+    </div>
+  </section>
+</Base>

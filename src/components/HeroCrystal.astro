@@ -1,0 +1,285 @@
+---
+interface Props {
+  lang: 'pt' | 'en';
+  title: string;
+  lead: string;
+  primary: { label: string; href: string };
+  secondary: { label: string; href: string };
+}
+
+const { lang, title, lead, primary, secondary } = Astro.props;
+const facets = [
+  { d: 'M0 96 L96 0 L96 96 Z', color: '#F2C14E' },
+  { d: 'M96 0 L192 96 L96 96 Z', color: '#E0894A' },
+  { d: 'M192 96 L96 192 L96 96 Z', color: '#5A47D6' },
+  { d: 'M96 192 L0 96 L96 96 Z', color: '#C8459A' },
+];
+const cuts = [
+  ['M96 21.12 L170.88 96', 8.96],
+  ['M170.88 96 L96 170.88', 8.55],
+  ['M96 170.88 L21.12 96', 8.15],
+  ['M21.12 96 L81.6 35.52', 7.74],
+  ['M81.6 35.52 L142.08 96', 7.33],
+  ['M142.08 96 L96 142.08', 6.92],
+  ['M96 142.08 L49.92 96', 6.52],
+  ['M49.92 96 L81.6 64.32', 6.11],
+  ['M81.6 64.32 L113.28 96', 5.70],
+  ['M113.28 96 L96 113.28', 5.29],
+  ['M96 113.28 L78.72 96', 4.89],
+] as const;
+const core = 'M96 84.48 L107.52 96 L96 107.52 L84.48 96 Z';
+const terraces = [208, 176, 144, 112, 80, 48, 80, 112, 144, 176, 208];
+const rings = [60, 76, 92, 108, 124, 140];
+---
+
+<section class="hero-crystal" lang={lang}>
+  <div class="hero-layout">
+    <div class="hero-copy">
+      <p class="brand-label entrance">ILMENYX TECHNOLOGY</p>
+      <h1 class="entrance">{title}</h1>
+      <p class="hero-lead entrance">{lead}</p>
+      <div class="hero-actions entrance">
+        <a class="hero-button primary" href={primary.href}>{primary.label}</a>
+        <a class="hero-button secondary" href={secondary.href}>{secondary.label}</a>
+      </div>
+    </div>
+
+    <div class="gem-stage">
+      <div class="rings" aria-hidden="true">
+        {rings.map((duration, index) => (
+          <span class="ring" style={`--size:${((110 + index * 27) / 2.2).toFixed(1)}%;--duration:${duration}s;--direction:${index % 2 ? 'reverse' : 'normal'}`} />
+        ))}
+      </div>
+      <div class="halo" aria-hidden="true"></div>
+      <svg
+        class="gem"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 192 192"
+        width="360"
+        height="360"
+        role="img"
+        aria-label={lang === 'pt'
+          ? 'A Gema, símbolo da Ilmenyx Technology'
+          : 'The Gem, the Ilmenyx Technology symbol'}
+      >
+        <g aria-hidden="true">
+          {facets.map((facet, index) => (
+            <path class="facet" d={facet.d} fill={facet.color} stroke={facet.color} stroke-width="0.27" style={`--delay:${index * 150}ms`} />
+          ))}
+          <g class="cuts" fill="none" stroke="#100E14">
+            {cuts.map(([d, width], index) => (
+              <path class="greca-cut" d={d} stroke-width={width} stroke-linecap="square" pathLength="1" style={`--delay:${600 + index * 100}ms`} />
+            ))}
+            <path class="facet-seams" d="M96 96 L96 0 M96 96 L192 96 M96 96 L96 192 M96 96 L0 96" stroke-width="1.76" />
+            <path d={core} stroke-width="3.8" />
+          </g>
+          <g class="core-entrance">
+            <path class="core" d={core} fill="#FFE29A" />
+          </g>
+        </g>
+      </svg>
+    </div>
+  </div>
+
+  <div class="terraces" aria-hidden="true">
+    {terraces.map((height, index) => (
+      <div class="terrace" style={`--height:${height}px;--position:${index * 10}%;--duration:${6 + (index % 5)}s;--delay:${-index * 0.7}s`} />
+    ))}
+  </div>
+
+  <div class="ruler" aria-hidden="true">
+    <span>0</span><span>5</span><span>10</span>
+  </div>
+</section>
+
+<style>
+  .hero-crystal {
+    --obsidian: #100e14;
+    --gold: #f2c14e;
+    --silver: #ece7ef;
+    --oxide: linear-gradient(90deg, #f2c14e, #e0894a, #c8459a, #5a47d6);
+    position: relative;
+    isolation: isolate;
+    display: grid;
+    align-items: center;
+    min-height: max(0px, calc(min(100vh, 860px) - 68px));
+    overflow: hidden;
+    padding: 80px clamp(24px, 6vw, 100px) 248px;
+    background: var(--obsidian);
+    color: var(--silver);
+    box-sizing: border-box;
+  }
+
+  .hero-crystal *, .hero-crystal *::before, .hero-crystal *::after { box-sizing: border-box; }
+  .hero-layout {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+    gap: clamp(32px, 5vw, 80px);
+    align-items: center;
+    width: 100%;
+    max-width: 1320px;
+    margin-inline: auto;
+  }
+  .hero-copy { min-width: 0; }
+  .brand-label {
+    margin: 0 0 24px;
+    color: var(--gold);
+    font: 500 12px/1.8 'IBM Plex Mono', monospace;
+    letter-spacing: .3em;
+    overflow-wrap: anywhere;
+    --delay: 2000ms;
+  }
+  h1 {
+    margin: 0;
+    color: var(--silver);
+    font: 800 clamp(40px, 6.5vw, 76px)/1.06 'Montserrat', sans-serif;
+    letter-spacing: -.045em;
+    overflow-wrap: anywhere;
+    text-wrap: balance;
+    --delay: 2100ms;
+  }
+  .hero-lead {
+    max-width: 620px;
+    margin: 26px 0 0;
+    color: #d6d0db;
+    font: 400 19px/1.7 'Inter', sans-serif;
+    overflow-wrap: anywhere;
+    --delay: 2200ms;
+  }
+  .hero-actions { display: flex; flex-wrap: wrap; gap: 16px; margin-top: 32px; --delay: 2300ms; }
+  .hero-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 48px;
+    max-width: 100%;
+    padding: 13px 24px;
+    border: 1px solid var(--silver);
+    border-radius: 4px;
+    color: var(--silver);
+    background: var(--obsidian);
+    font: 600 15px/1.5 'Inter', sans-serif;
+    text-align: center;
+    text-decoration: none;
+    overflow-wrap: anywhere;
+    transition: border-color 180ms ease, box-shadow 180ms ease;
+  }
+  .hero-button.primary { background: var(--gold); border-color: var(--gold); color: var(--obsidian); }
+  .hero-button:hover { border-color: var(--gold); box-shadow: 0 0 20px rgb(242 193 78 / .18); }
+  .hero-button:focus-visible { outline: 2px solid var(--gold); outline-offset: 5px; }
+  .hero-actions:focus-within { animation: none; opacity: 1; transform: none; }
+  .entrance { animation: fade-up 300ms ease-out var(--delay) both; }
+
+  .gem-stage {
+    position: relative;
+    isolation: isolate;
+    width: min(360px, 70vw, 100%);
+    aspect-ratio: 1;
+    justify-self: center;
+  }
+  .gem { position: relative; display: block; width: 100%; height: 100%; overflow: visible; }
+  .rings, .halo { position: absolute; pointer-events: none; z-index: -1; }
+  /* Larger box + radial fade: the outer rings dissolve instead of crossing the headline. */
+  .rings { inset: -60%; -webkit-mask-image: radial-gradient(closest-side, #000 45%, transparent 100%); mask-image: radial-gradient(closest-side, #000 45%, transparent 100%); }
+  .ring {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: var(--size);
+    aspect-ratio: 1;
+    border: 1px solid rgb(236 231 239 / .07);
+    transform: translate(-50%, -50%) rotate(45deg);
+    animation: orbit var(--duration) linear infinite var(--direction);
+  }
+  .halo {
+    inset: -35%;
+    border-radius: 50%;
+    background: radial-gradient(ellipse at 65% 40%, rgb(90 71 214 / .32), transparent 60%),
+      radial-gradient(ellipse at 35% 65%, rgb(200 69 154 / .22), transparent 60%);
+    filter: blur(28px);
+    animation: halo-breathe 8s ease-in-out infinite;
+  }
+  .facet { transform-origin: 96px 96px; animation: facet-arrive 450ms ease-out var(--delay) both; }
+  .greca-cut {
+    stroke-dasharray: 1;
+    stroke-dashoffset: 0;
+    animation: draw-cut 200ms linear var(--delay) both;
+  }
+  .facet-seams { animation: seam-arrive 300ms ease-out 600ms both; }
+  .core-entrance { animation: seam-arrive 400ms ease-out 1800ms both; }
+  .core { filter: drop-shadow(0 0 3px rgb(255 226 154 / .65)); animation: core-pulse 4s ease-in-out 2200ms infinite; }
+
+  .terraces {
+    position: absolute;
+    z-index: 1;
+    inset: auto 0 0;
+    display: grid;
+    grid-template-columns: repeat(11, minmax(0, 1fr));
+    align-items: end;
+    height: 220px;
+    pointer-events: none;
+  }
+  .terrace {
+    position: relative;
+    height: var(--height);
+    margin-bottom: -8px;
+    background: linear-gradient(180deg, #1d1a24, #16131c);
+    animation: terrace-breathe var(--duration) ease-in-out var(--delay) infinite;
+  }
+  /* Each edge samples its position in one continuous, full-width oxide gradient. */
+  .terrace::before, .terrace::after {
+    content: '';
+    position: absolute;
+    inset: 0 0 auto;
+    height: 2px;
+    background: var(--oxide);
+    background-size: 1100% 100%;
+    background-position: var(--position) 0;
+  }
+  .terrace::after { height: 5px; filter: blur(7px); opacity: .65; }
+  .ruler {
+    position: absolute;
+    z-index: 3;
+    top: 50%;
+    right: 16px;
+    width: 28px;
+    height: 401px;
+    transform: translateY(-50%);
+    border-right: 1px solid #5e5868;
+    background: repeating-linear-gradient(to bottom, #5e5868 0 1px, transparent 1px 40px) right top / 7px 100% no-repeat;
+    color: #5e5868;
+    font: 400 10px/1 'IBM Plex Mono', monospace;
+    pointer-events: none;
+  }
+  .ruler span { position: absolute; right: 11px; top: 0; }
+  .ruler span:nth-child(2) { top: 200px; }
+  .ruler span:nth-child(3) { top: 400px; }
+
+  @keyframes orbit { to { transform: translate(-50%, -50%) rotate(405deg); } }
+  @keyframes facet-arrive { from { opacity: 0; transform: scale(.72); } to { opacity: 1; transform: scale(1); } }
+  @keyframes draw-cut { from { stroke-dashoffset: 1; opacity: 0; } 1% { opacity: 1; } to { stroke-dashoffset: 0; opacity: 1; } }
+  @keyframes seam-arrive { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes core-pulse { 50% { filter: drop-shadow(0 0 7px rgb(255 226 154 / .9)); } }
+  @keyframes halo-breathe { 50% { opacity: .65; transform: scale(.94); } }
+  @keyframes terrace-breathe { 50% { transform: translateY(-6px); } }
+  @keyframes fade-up { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+
+  @media (max-width: 879px) {
+    .hero-crystal { padding: 56px 24px 168px; }
+    .hero-layout { grid-template-columns: minmax(0, 1fr); gap: 64px; text-align: center; }
+    .hero-lead { margin-inline: auto; }
+    .hero-actions { justify-content: center; }
+    .terraces { height: 140px; }
+    .terrace { height: calc(var(--height) * .6); }
+    .ruler { right: 6px; width: 18px; }
+    .ruler span { right: 9px; font-size: 8px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .hero-crystal *, .hero-crystal *::before, .hero-crystal *::after {
+      animation: none !important;
+      transition: none !important;
+    }
+  }
+</style>

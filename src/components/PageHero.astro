@@ -1,0 +1,14 @@
+---
+// Opening of the inner pages: label, title and lead over a faint set of concentric diamonds.
+interface Props { label: string; title: string; lead?: string; }
+const { label, title, lead } = Astro.props;
+---
+<section class="pagehero">
+  <div class="diamonds" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
+  <div class="wrap">
+    <p class="eyebrow">{label}</p>
+    <h1>{title}</h1>
+    {lead && <p class="lead">{lead}</p>}
+    <slot />
+  </div>
+</section>

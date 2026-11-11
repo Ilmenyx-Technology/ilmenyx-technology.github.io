@@ -1,0 +1,10 @@
+---
+// Numbered section header in the manual's style: "02 / A MARCA" on the left, a hint on the right, a rule across.
+interface Props { label: string; hint?: string; }
+const { label, hint } = Astro.props;
+---
+<div class="sechead">
+  <p class="eyebrow" style="margin:0">{label}</p>
+  <span class="rule" aria-hidden="true"></span>
+  {hint && <p class="sechint">{hint}</p>}
+</div>
