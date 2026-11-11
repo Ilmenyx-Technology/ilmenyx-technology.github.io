@@ -17,7 +17,9 @@
   --font-text: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
   --font-mono: 'IBM Plex Mono', ui-monospace, 'DejaVu Sans Mono', monospace;
   --r-sm: 8px; --r-md: 12px; --r-lg: 16px; --r-xl: 20px;
-  --wrap: 1180px;
+  /* One column for the whole site (header, hero, sections, footer): same max width, same side margin. */
+  --wrap: 1600px;
+  --pad: clamp(20px, 6vw, 100px);
 }
 
 * { box-sizing: border-box; }
@@ -34,7 +36,7 @@ a { color: var(--gold); text-decoration: none; }
 a:hover { text-decoration: underline; text-underline-offset: 3px; }
 :focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; border-radius: 4px; }
 img { max-width: 100%; height: auto; display: block; }
-.wrap { max-width: var(--wrap); margin: 0 auto; padding: 0 24px; }
+.wrap { max-width: calc(var(--wrap) + var(--pad) * 2); margin: 0 auto; padding: 0 var(--pad); }
 .skip { position: absolute; left: -999px; top: 8px; background: var(--gold); color: var(--obsidian); padding: 8px 14px; border-radius: var(--r-sm); z-index: 20; }
 .skip:focus { left: 16px; }
 
@@ -302,7 +304,6 @@ main { overflow-x: clip; }
 
 /* Phones: tighter rhythm, smaller inner-page opening, comfortable tap targets. */
 @media (max-width: 640px) {
-  .wrap { padding: 0 20px; }
   .sec { padding: 72px 0; }
   .sechead { margin-bottom: 24px; }
   .pagehero { padding: 56px 0 40px; }
