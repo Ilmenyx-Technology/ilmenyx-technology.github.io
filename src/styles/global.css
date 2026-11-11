@@ -192,6 +192,7 @@ code { font-family: var(--font-mono); font-size: .9em; color: var(--silver); bac
 .story { display: grid; grid-template-columns: 240px 1fr; gap: 48px; align-items: start; }
 @media (max-width: 880px) { .story { grid-template-columns: 1fr; gap: 24px; } }
 .story-card { position: sticky; top: 100px; }
+.avatar-photo { width: 120px; height: 120px; border-radius: 50%; object-fit: cover; margin-bottom: 16px; padding: 3px; background: var(--oxide); box-shadow: 0 16px 40px rgba(90,71,214,.35); }
 .avatar { width: 96px; height: 96px; display: grid; place-items: center; font: 800 30px var(--font-brand); color: var(--obsidian); background: var(--oxide); clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%); margin-bottom: 16px; }
 .story-text p { font-size: 18px; line-height: 1.75; color: #d6d0db; max-width: 720px; }
 .story-text p:first-child::first-letter { font: 800 52px/0.9 var(--font-brand); float: left; margin: 6px 10px 0 0; color: var(--gold); }
@@ -264,8 +265,8 @@ code { font-family: var(--font-mono); font-size: .9em; color: var(--silver); bac
 .rv.in { opacity: 1; transform: none; }
 
 /* Light that bridges the hero and the first section. */
-main > section:first-child + .sec { position: relative; }
-main > section:first-child + .sec::before {
+main > section:first-of-type ~ section:nth-of-type(2) { position: relative; }
+main > section:first-of-type ~ section:nth-of-type(2)::before {
   content: ''; position: absolute; left: 0; right: 0; top: -140px; height: 360px; pointer-events: none; z-index: -1;
   background: radial-gradient(ellipse 55% 100% at 50% 0%, rgba(90,71,214,.16), rgba(200,69,154,.06) 45%, transparent 75%);
 }
@@ -275,3 +276,44 @@ main > section:first-child + .sec::before {
   @view-transition { navigation: none; }
   *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
 }
+
+/* ================= Hero → page transition variants (html[data-t]) ================= */
+.horizon { display: none; }
+/* Wide decorations (arc, glows) never widen the page; clip keeps position: sticky working. */
+main { overflow-x: clip; }
+.t-chooser { position: fixed; z-index: 50; right: 16px; bottom: 16px; display: flex; flex-wrap: wrap; align-items: center; gap: 6px; padding: 8px; background: rgba(29,26,36,.92); border: 1px solid var(--line); border-radius: 14px; backdrop-filter: blur(8px); font: 500 11px var(--font-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--ash); max-width: calc(100vw - 32px); }
+.t-chooser span { padding: 0 6px; }
+.t-chooser button { font: inherit; letter-spacing: inherit; text-transform: inherit; color: var(--silver); background: transparent; border: 1px solid var(--line); border-radius: 8px; padding: 7px 10px; cursor: pointer; }
+.t-chooser button[aria-pressed] { background: var(--gold); color: var(--obsidian); border-color: var(--gold); }
+
+/* A · Sheet over the crystal: the hero stays pinned while the page slides over it; the gem recedes. */
+html[data-t="a"] main > .hero-crystal { position: sticky; top: var(--stick, 76px); z-index: 0; }
+html[data-t="a"] .hero-crystal .hero-layout { scale: calc(1 - var(--p) * .08); filter: blur(calc(var(--p) * 6px)) brightness(calc(1 - var(--p) * .5)); transform: none; opacity: calc(1 - var(--p) * .6); }
+html[data-t="a"] .hero-crystal .terraces { transform: none; filter: brightness(calc(1 - var(--p) * .6)); }
+html[data-t="a"] main > section:not(.hero-crystal) { position: relative; z-index: 1; background: var(--obsidian); }
+html[data-t="a"] main > .hero-crystal ~ section:nth-of-type(2) { margin-top: -40px; border-radius: 36px 36px 0 0; box-shadow: 0 -40px 90px rgba(0,0,0,.55), inset 0 1px 0 rgba(236,231,239,.08); }
+html[data-t="a"] main > .hero-crystal ~ section:nth-of-type(2)::before { content: ''; position: absolute; z-index: 0; top: 0; left: 8%; right: 8%; height: 1px; background: linear-gradient(90deg, transparent, var(--gold), var(--magenta), var(--indigo), transparent); opacity: .7; filter: drop-shadow(0 0 10px rgba(200,69,154,.8)); }
+html[data-t="a"] main > .hero-crystal ~ section:nth-of-type(2) > .wrap { position: relative; z-index: 1; }
+html[data-t="a"] .foot { position: relative; z-index: 1; background: var(--obsidian); }
+
+/* B · The steps become the horizon: each one sinks to the base and their lit tops meet in one line of light. */
+html[data-t="b"] .hero-crystal .terraces { transform: none; }
+html[data-t="b"] .hero-crystal .terrace { translate: 0 calc(var(--height) * var(--q)); }
+html[data-t="b"] .hero-crystal .terrace::after { opacity: calc(.65 + var(--q) * .35); }
+html[data-t="b"] .hero-crystal .horizon {
+  display: block; position: absolute; z-index: 3; left: 0; right: 0; bottom: 0; height: 2px;
+  background: linear-gradient(90deg, #F2C14E, #E0894A 35%, #C8459A 65%, #5A47D6);
+  transform: scaleX(var(--q)); opacity: var(--q);
+  box-shadow: 0 0 18px rgba(200,69,154,.7), 0 0 60px rgba(90,71,214,.5);
+}
+html[data-t="b"] .hero-crystal .horizon::after { content: ''; position: absolute; left: 0; right: 0; top: 2px; height: 160px; background: linear-gradient(180deg, rgba(90,71,214,.18), transparent); opacity: var(--q); }
+
+/* C · Arc of light: the first section rises over the hero with a curved, glowing top. */
+html[data-t="c"] main > .hero-crystal ~ section:nth-of-type(2) { position: relative; z-index: 2; margin-top: -150px; padding-top: 190px; }
+html[data-t="c"] main > .hero-crystal ~ section:nth-of-type(2)::before {
+  content: ''; position: absolute; z-index: -1; top: 0; left: -25%; right: -25%; height: 100%;
+  background: var(--obsidian); border-radius: 50% 50% 0 0 / 150px 150px 0 0;
+  box-shadow: 0 -2px 0 rgba(160,140,255,.35), 0 -18px 50px rgba(90,71,214,.45), 0 -60px 140px rgba(200,69,154,.22);
+  translate: 0 calc(var(--arc, 0) * 1px);
+}
+html[data-t="c"] .hero-crystal .terraces { transform: translateY(calc(var(--p) * 30px)); }
