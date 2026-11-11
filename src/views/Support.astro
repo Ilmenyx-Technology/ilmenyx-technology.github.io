@@ -21,7 +21,8 @@ const x = t[lang].support;
         </div>
         <div class="card support">
           <img class="qr" src="/img/pix-qrcode.png" alt={x.pix.qrAlt} width="168" height="168" />
-          <div><h3>{x.pix.title}</h3><p class="muted">{x.pix.text}</p><code style="word-break:break-all">{PIX}</code></div>
+          <div><h3>{x.pix.title}</h3><p class="muted">{x.pix.text}</p></div>
+          <div class="cmd pix-key"><code>{PIX}</code><button type="button" class="copy" data-copy={PIX} data-done={t[lang].controller.copied}>{t[lang].controller.copy}</button></div>
         </div>
       </div>
     </div>

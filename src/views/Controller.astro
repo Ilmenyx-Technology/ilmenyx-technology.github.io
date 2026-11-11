@@ -69,13 +69,4 @@ const hist = content[lang];
       <ol class="timeline">{hist.events.map((e) => <li><span class="mono tl-date">{e.date}</span><h3>{e.title}</h3><p class="muted">{e.text}</p></li>)}</ol>
     </div>
   </section>
-  <script>
-    // Copy buttons for the terminal commands (no tracking, nothing sent anywhere).
-    document.querySelectorAll<HTMLButtonElement>('button.copy').forEach((b) => {
-      const label = b.textContent;
-      b.addEventListener('click', async () => {
-        try { await navigator.clipboard.writeText(b.dataset.copy ?? ''); b.textContent = b.dataset.done ?? label; setTimeout(() => (b.textContent = label), 1800); } catch { /* clipboard blocked: the command stays selectable */ }
-      });
-    });
-  </script>
 </Base>

@@ -86,5 +86,14 @@ const current = (key: Page) => key === page || (key === 'projects' && page === '
       });
     }
   </script>
+  <script>
+    // Copy buttons (terminal commands, Pix key): nothing is sent anywhere.
+    document.querySelectorAll<HTMLButtonElement>('button.copy').forEach((b) => {
+      const label = b.textContent;
+      b.addEventListener('click', async () => {
+        try { await navigator.clipboard.writeText(b.dataset.copy ?? ''); b.textContent = b.dataset.done ?? label; setTimeout(() => (b.textContent = label), 1800); } catch { /* clipboard blocked: the text stays selectable */ }
+      });
+    });
+  </script>
 </body>
 </html>
