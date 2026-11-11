@@ -42,7 +42,8 @@ const current = (key: Page) => key === page || (key === 'projects' && page === '
   <header class="top">
     <div class="wrap">
       <a class="brand" href={p.home} aria-label="Ilmenyx Technology"><img src="/img/horizontal-fundo-escuro.svg" alt="Ilmenyx Technology" width="138" height="50" /></a>
-      <nav class="nav" aria-label={s.nav.main}>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="menu" aria-label={lang === 'pt' ? 'Abrir menu' : 'Open menu'} data-open={lang === 'pt' ? 'Abrir menu' : 'Open menu'} data-close={lang === 'pt' ? 'Fechar menu' : 'Close menu'}><span></span><span></span><span></span></button>
+      <nav class="nav" id="menu" aria-label={s.nav.main}>
         {navItems.map(([key, label]) => <a href={p[key]} aria-current={current(key) ? 'page' : undefined}>{label}</a>)}
         <a class="lang" href={paths[other][page]} hreflang={other === 'pt' ? 'pt-BR' : 'en'} lang={other === 'pt' ? 'pt-BR' : 'en'} aria-label={s.switchName}>{s.switchLabel}</a>
       </nav>
@@ -94,6 +95,21 @@ const current = (key: Page) => key === page || (key === 'projects' && page === '
         try { await navigator.clipboard.writeText(b.dataset.copy ?? ''); b.textContent = b.dataset.done ?? label; setTimeout(() => (b.textContent = label), 1800); } catch { /* clipboard blocked: the text stays selectable */ }
       });
     });
+  </script>
+  <script>
+    // Phone menu: the toggle opens the page list as a panel; a choice, Escape or a wider window closes it.
+    const top = document.querySelector<HTMLElement>('.top');
+    const toggle = document.querySelector<HTMLButtonElement>('.menu-toggle');
+    const setOpen = (open: boolean) => {
+      if (!top || !toggle) return;
+      top.classList.toggle('open', open);
+      toggle.setAttribute('aria-expanded', String(open));
+      toggle.setAttribute('aria-label', (open ? toggle.dataset.close : toggle.dataset.open) ?? '');
+    };
+    toggle?.addEventListener('click', () => setOpen(!top?.classList.contains('open')));
+    document.querySelectorAll('#menu a').forEach((a) => a.addEventListener('click', () => setOpen(false)));
+    addEventListener('keydown', (e) => { if (e.key === 'Escape' && top?.classList.contains('open')) { setOpen(false); toggle?.focus(); } });
+    matchMedia('(min-width: 861px)').addEventListener('change', (m) => { if (m.matches) setOpen(false); });
   </script>
 </body>
 </html>

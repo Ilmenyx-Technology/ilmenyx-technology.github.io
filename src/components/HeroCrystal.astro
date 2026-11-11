@@ -260,7 +260,7 @@ const rings = [60, 76, 92, 108, 124, 140];
   }
   .terrace {
     position: relative;
-    height: var(--height);
+    height: calc(var(--height) * var(--hs, 1));
     margin-bottom: -8px;
     /* Lit top kept whole; the body clears toward the base so the steps melt into the page instead of ending in an edge. */
     background: linear-gradient(180deg, rgb(29 26 36 / .95) 0%, rgb(22 19 28 / .55) 60%, rgb(16 14 20 / 0) 100%);
@@ -279,7 +279,7 @@ const rings = [60, 76, 92, 108, 124, 140];
   .terrace::after { height: 5px; filter: blur(7px); opacity: calc(.65 + var(--q) * .35); }
   /* Hand-off to the page: as you scroll, each step sinks to the base and the lit tops meet in one line of light
      (the horizon), which opens from the centre and becomes the floor the next section stands on. */
-  .terrace { translate: 0 calc(var(--height) * var(--q)); }
+  .terrace { translate: 0 calc(var(--height) * var(--hs, 1) * var(--q)); }
   .horizon {
     position: absolute; z-index: 3; left: 0; right: 0; bottom: 0; height: 2px; pointer-events: none;
     background: linear-gradient(90deg, #F2C14E, #E0894A 35%, #C8459A 65%, #5A47D6);
@@ -303,13 +303,17 @@ const rings = [60, 76, 92, 108, 124, 140];
   @keyframes terrace-breathe { 50% { transform: translateY(-6px); } }
   @keyframes fade-up { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
 
+  /* Phones and small tablets: the gem comes first (the brand on the first screen), then the copy; the steps scale down
+     with --hs so they still sink exactly onto the horizon. */
   @media (max-width: 879px) {
-    .hero-crystal { padding: 56px 24px 168px; }
-    .hero-layout { grid-template-columns: minmax(0, 1fr); gap: 64px; text-align: center; }
-    .hero-lead { margin-inline: auto; }
-    .hero-actions { justify-content: center; }
-    .terraces { height: 140px; }
-    .terrace { height: calc(var(--height) * .6); }
+    .hero-crystal { --hs: .55; min-height: auto; padding: 28px 20px 140px; }
+    .hero-layout { grid-template-columns: minmax(0, 1fr); gap: 24px; text-align: center; }
+    .gem-stage { order: -1; width: min(220px, 58vw); }
+    h1 { font-size: clamp(32px, 9.6vw, 46px); }
+    .hero-lead { margin-inline: auto; font-size: 17px; }
+    .hero-actions { flex-direction: column; align-items: stretch; width: 100%; max-width: 340px; margin: 24px auto 0; gap: 12px; }
+    .hero-button { justify-content: center; text-align: center; }
+    .terraces { height: 120px; }
   }
   @media (prefers-reduced-motion: reduce) {
     .hero-crystal *, .hero-crystal *::before, .hero-crystal *::after {

@@ -58,10 +58,27 @@ p { margin: 0 0 16px; }
 .nav a[aria-current='page'] { color: var(--gold); border-bottom-color: var(--gold); }
 .nav a:hover { color: var(--silver); text-decoration: none; }
 .lang { font: 500 12px var(--font-mono); letter-spacing: .1em; border: 1px solid var(--line); border-radius: 999px; padding: 6px 12px; color: var(--silver) !important; }
-@media (max-width: 760px) {
-  .top .wrap { height: auto; flex-wrap: wrap; padding-top: 12px; padding-bottom: 12px; gap: 10px; }
-  .nav { margin-left: 0; width: 100%; flex-wrap: wrap; gap: 8px 16px; }
-  html { scroll-padding-top: 140px; }
+.menu-toggle { display: none; }
+/* Phones and small tablets: the page list moves into a panel opened by the menu button. */
+@media (max-width: 860px) {
+  .top .wrap { height: 64px; }
+  .brand img { height: 42px; }
+  html { scroll-padding-top: 80px; }
+  .menu-toggle { display: inline-flex; flex-direction: column; justify-content: center; gap: 5px; margin-left: auto; width: 44px; height: 44px; padding: 0 11px; background: transparent; border: 1px solid var(--line); border-radius: var(--r-md); cursor: pointer; }
+  .menu-toggle span { display: block; height: 2px; background: var(--silver); border-radius: 2px; transition: transform .3s cubic-bezier(.2,.7,.2,1), opacity .2s ease; }
+  .top.open .menu-toggle span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .top.open .menu-toggle span:nth-child(2) { opacity: 0; }
+  .top.open .menu-toggle span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+  .nav {
+    position: absolute; top: 64px; left: 0; right: 0; margin: 0; flex-direction: column; align-items: stretch; gap: 0;
+    padding: 8px 24px 28px; background: var(--obsidian); border-bottom: 1px solid var(--line);
+    box-shadow: 0 30px 60px rgba(0,0,0,.5);
+    opacity: 0; visibility: hidden; transform: translateY(-10px); transition: opacity .25s ease, transform .3s cubic-bezier(.2,.7,.2,1), visibility 0s .3s;
+  }
+  .top.open .nav { opacity: 1; visibility: visible; transform: none; transition: opacity .25s ease, transform .3s cubic-bezier(.2,.7,.2,1); }
+  .nav a { font-size: 15px; padding: 16px 0; border-bottom: 1px solid var(--line); }
+  .nav a[aria-current='page'] { border-bottom-color: var(--line); }
+  .nav a.lang { align-self: flex-start; margin-top: 18px; padding: 10px 16px; border: 1px solid var(--line); }
 }
 
 /* Sections */
@@ -282,3 +299,30 @@ main > section:first-of-type ~ section:nth-of-type(2)::before {
 /* Wide decorations never widen the page; clip keeps position: sticky working. */
 main { overflow-x: clip; }
 
+
+/* Phones: tighter rhythm, smaller inner-page opening, comfortable tap targets. */
+@media (max-width: 640px) {
+  .wrap { padding: 0 20px; }
+  .sec { padding: 72px 0; }
+  .sechead { margin-bottom: 24px; }
+  .pagehero { padding: 56px 0 40px; }
+  .pagehero .diamonds { width: 360px; height: 360px; right: -160px; top: -60px; }
+  .lead { font-size: 17px; }
+  .card { padding: 22px; }
+  .project-shot { padding: 18px 18px 0; }
+  .project-body { padding: 22px; }
+  .project-name { font-size: 26px; }
+  .btns { flex-direction: column; align-items: stretch; }
+  .btns .btn { justify-content: center; }
+  .join-box { padding: 48px 20px; }
+  .quote { padding-left: 16px; }
+  .story-text p { font-size: 17px; }
+  .story-card { position: static; display: flex; align-items: center; gap: 16px; }
+  .story-card .avatar-photo { width: 84px; height: 84px; margin: 0; }
+  .news-item { padding: 20px 0; }
+  .cmd { flex-direction: column; }
+  .copy { padding: 10px 12px; }
+  .foot-grid { gap: 28px; }
+  .foot-bottom { flex-direction: column; }
+  .principle, .machine { padding: 22px 20px; }
+}
