@@ -255,6 +255,23 @@ code { font-family: var(--font-mono); font-size: .9em; color: var(--silver); bac
 .foot a { color: #cfc8d6; }
 .foot-bottom { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; margin-top: 56px; padding-top: 24px; border-top: 1px solid var(--line); font-size: 13px; }
 
+/* Smooth page-to-page navigation where the browser supports cross-document view transitions. */
+@view-transition { navigation: auto; }
+::view-transition-old(root), ::view-transition-new(root) { animation-duration: 320ms; animation-timing-function: cubic-bezier(.2,.7,.2,1); }
+
+/* Scroll reveal (classes added by the script in Base.astro). */
+.rv { opacity: 0; transform: translateY(26px); transition: opacity .9s cubic-bezier(.2,.7,.2,1), transform .9s cubic-bezier(.2,.7,.2,1); transition-delay: var(--d, 0ms); }
+.rv.in { opacity: 1; transform: none; }
+
+/* Light that bridges the hero and the first section. */
+main > section:first-child + .sec { position: relative; }
+main > section:first-child + .sec::before {
+  content: ''; position: absolute; left: 0; right: 0; top: -140px; height: 360px; pointer-events: none; z-index: -1;
+  background: radial-gradient(ellipse 55% 100% at 50% 0%, rgba(90,71,214,.16), rgba(200,69,154,.06) 45%, transparent 75%);
+}
+
 @media (prefers-reduced-motion: reduce) {
+  .rv { opacity: 1 !important; transform: none !important; }
+  @view-transition { navigation: none; }
   *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
 }

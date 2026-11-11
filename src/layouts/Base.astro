@@ -70,5 +70,21 @@ const current = (key: Page) => key === page || (key === 'projects' && page === '
       <span>{s.footer.privacy}</span>
     </div>
   </footer>
+  <script>
+    // Sections ease in as they reach the screen; cards in a row follow one another. Nothing hides without JS
+    // or for people who asked the system for less motion.
+    if (!matchMedia('(prefers-reduced-motion: reduce)').matches && 'IntersectionObserver' in window) {
+      const items = document.querySelectorAll<HTMLElement>('main .sec .sechead, main .sec h2, main .sec .lead, main .sec .card, main .sec .principle, main .sec .news-item, main .sec .quote, main .sec .steps, main .sec .timeline li, main .sec .story-text p, main .sec .gem-story img, main .join-box, main .gallery figure');
+      const seen = new IntersectionObserver((entries) => {
+        for (const e of entries) if (e.isIntersecting) { e.target.classList.add('in'); seen.unobserve(e.target); }
+      }, { rootMargin: '0px 0px -8% 0px', threshold: 0.12 });
+      items.forEach((el) => {
+        const siblings = el.parentElement ? Array.from(el.parentElement.children) : [];
+        el.style.setProperty('--d', `${Math.min(siblings.indexOf(el), 5) * 90}ms`);
+        el.classList.add('rv');
+        seen.observe(el);
+      });
+    }
+  </script>
 </body>
 </html>
