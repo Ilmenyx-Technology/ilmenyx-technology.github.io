@@ -14,7 +14,7 @@ const navItems: [Page, string][] = [['about', s.nav.about], ['projects', s.nav.p
 const current = (key: Page) => key === page || (key === 'projects' && page === 'controller');
 ---
 <!doctype html>
-<html lang={s.htmlLang} data-t="a">
+<html lang={s.htmlLang}>
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -38,14 +38,6 @@ const current = (key: Page) => key === page || (key === 'projects' && page === '
   <meta name="theme-color" content="#100E14" />
 </head>
 <body>
-  <script is:inline>
-    // Transition preview: ?t=a|b|c|atual picks a variant (kept while browsing); the chooser below switches live.
-    (function () {
-      var q = new URLSearchParams(location.search).get('t');
-      try { if (q) localStorage.setItem('ilx-t', q); q = q || localStorage.getItem('ilx-t'); } catch (e) {}
-      if (q) document.documentElement.dataset.t = q;
-    })();
-  </script>
   <a class="skip" href="#conteudo">{s.skip}</a>
   <header class="top">
     <div class="wrap">
@@ -78,21 +70,6 @@ const current = (key: Page) => key === page || (key === 'projects' && page === '
       <span>{s.footer.privacy}</span>
     </div>
   </footer>
-  <div class="t-chooser" aria-label="Escolher transição">
-    <span>Transição</span>
-    <button type="button" data-v="a">A · Lâmina</button><button type="button" data-v="b">B · Horizonte</button><button type="button" data-v="c">C · Arco</button><button type="button" data-v="atual">Atual</button>
-  </div>
-  <script>
-    // Preview chooser (temporary, for picking the hero transition).
-    const chooser = document.querySelector('.t-chooser');
-    const mark = () => chooser?.querySelectorAll('button').forEach((b) => b.toggleAttribute('aria-pressed', b.dataset.v === document.documentElement.dataset.t));
-    chooser?.addEventListener('click', (e) => {
-      const v = (e.target as HTMLElement).dataset?.v; if (!v) return;
-      document.documentElement.dataset.t = v; try { localStorage.setItem('ilx-t', v); } catch {}
-      mark(); window.scrollTo({ top: 0 });
-    });
-    mark();
-  </script>
   <script>
     // Sections ease in as they reach the screen; cards in a row follow one another. Nothing hides without JS
     // or for people who asked the system for less motion.

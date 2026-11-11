@@ -241,7 +241,7 @@ const rings = [60, 76, 92, 108, 124, 140];
   .core-entrance { animation: seam-arrive 400ms ease-out 1800ms both; }
   .core { filter: drop-shadow(0 0 3px rgb(255 226 154 / .65)); animation: core-pulse 4s ease-in-out 2200ms infinite; }
 
-  .hero-crystal { --p: 0; }
+  .hero-crystal { --p: 0; --q: 0; }
   .hero-layout { position: relative; z-index: 2; transform: translateY(calc(var(--p) * -70px)); opacity: calc(1 - var(--p) * 1.15); will-change: transform, opacity; }
   /* Soft hand-off to the page: the terraces dissolve into the background instead of ending in a hard edge. */
   .hero-fade {
@@ -249,7 +249,6 @@ const rings = [60, 76, 92, 108, 124, 140];
     background: none;
   }
   .terraces {
-    transform: translateY(calc(var(--p) * 40px));
     position: absolute;
     z-index: 1;
     inset: auto 0 0;
@@ -277,7 +276,17 @@ const rings = [60, 76, 92, 108, 124, 140];
     background-size: 1100% 100%;
     background-position: var(--position) 0;
   }
-  .terrace::after { height: 5px; filter: blur(7px); opacity: .65; }
+  .terrace::after { height: 5px; filter: blur(7px); opacity: calc(.65 + var(--q) * .35); }
+  /* Hand-off to the page: as you scroll, each step sinks to the base and the lit tops meet in one line of light
+     (the horizon), which opens from the centre and becomes the floor the next section stands on. */
+  .terrace { translate: 0 calc(var(--height) * var(--q)); }
+  .horizon {
+    position: absolute; z-index: 3; left: 0; right: 0; bottom: 0; height: 2px; pointer-events: none;
+    background: linear-gradient(90deg, #F2C14E, #E0894A 35%, #C8459A 65%, #5A47D6);
+    transform: scaleX(var(--q)); opacity: var(--q);
+    box-shadow: 0 0 18px rgb(200 69 154 / .7), 0 0 60px rgb(90 71 214 / .5);
+  }
+  .horizon::after { content: ''; position: absolute; left: 0; right: 0; top: 2px; height: 160px; background: linear-gradient(180deg, rgb(90 71 214 / .18), transparent); opacity: var(--q); }
 
   @keyframes cut-reveal { from { opacity: 0; } to { opacity: 1; } }
   @keyframes ignite {
