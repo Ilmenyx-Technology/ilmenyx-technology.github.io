@@ -125,9 +125,6 @@ const rings = [60, 76, 92, 108, 124, 140];
     padding: 80px clamp(24px, 6vw, 100px) 248px;
     /* Transparent: the page background (with its soft light) runs through the hero, so there is no seam below it. */
     background: transparent;
-    /* Everything fades out over the last 220px, so nothing ever touches the hero's bottom edge. */
-    -webkit-mask-image: linear-gradient(180deg, #000 calc(100% - 220px), transparent);
-    mask-image: linear-gradient(180deg, #000 calc(100% - 220px), transparent);
     color: var(--silver);
     box-sizing: border-box;
   }
@@ -247,9 +244,7 @@ const rings = [60, 76, 92, 108, 124, 140];
     background: none;
   }
   .terraces {
-    transform: translateY(calc(var(--p) * 90px));
-    -webkit-mask-image: linear-gradient(180deg, #000 30%, transparent 100%);
-    mask-image: linear-gradient(180deg, #000 30%, transparent 100%);
+    transform: translateY(calc(var(--p) * 40px));
     position: absolute;
     z-index: 1;
     inset: auto 0 0;
@@ -263,7 +258,8 @@ const rings = [60, 76, 92, 108, 124, 140];
     position: relative;
     height: var(--height);
     margin-bottom: -8px;
-    background: linear-gradient(180deg, #1d1a24, #16131c);
+    /* Lit top kept whole; the body clears toward the base so the steps melt into the page instead of ending in an edge. */
+    background: linear-gradient(180deg, rgb(29 26 36 / .95) 0%, rgb(22 19 28 / .55) 60%, rgb(16 14 20 / 0) 100%);
     animation: terrace-breathe var(--duration) ease-in-out var(--delay) infinite;
   }
   /* Each edge samples its position in one continuous, full-width oxide gradient. */
