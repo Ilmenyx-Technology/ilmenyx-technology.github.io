@@ -1,6 +1,6 @@
 // All site copy in one place: Portuguese (default, at /) and English (at /en/).
 export type Lang = 'pt' | 'en';
-export type Page = 'home' | 'about' | 'projects' | 'controller' | 'support' | 'contact';
+export type Page = 'home' | 'about' | 'projects' | 'controller' | 'news' | 'support' | 'contact';
 
 export const REPO = 'https://github.com/Ilmenyx-Technology/ilmenyx-controller';
 export const RELEASES = `${REPO}/releases`;
@@ -19,8 +19,8 @@ export const FLATPAK_CMD = `curl -LO ${FLATPAK_URL} && flatpak install --user Il
 
 /** Address of each page in each language (the header switch keeps the reader on the same page). */
 export const paths: Record<Lang, Record<Page, string>> = {
-  pt: { home: '/', about: '/sobre/', projects: '/projetos/', controller: '/projetos/ilmenyx-controller/', support: '/apoie/', contact: '/contato/' },
-  en: { home: '/en/', about: '/en/about/', projects: '/en/projects/', controller: '/en/projects/ilmenyx-controller/', support: '/en/support/', contact: '/en/contact/' },
+  pt: { home: '/', about: '/sobre/', projects: '/projetos/', controller: '/projetos/ilmenyx-controller/', news: '/novidades/', support: '/apoie/', contact: '/contato/' },
+  en: { home: '/en/', about: '/en/about/', projects: '/en/projects/', controller: '/en/projects/ilmenyx-controller/', news: '/en/news/', support: '/en/support/', contact: '/en/contact/' },
 };
 
 export const t = {
@@ -29,11 +29,11 @@ export const t = {
     shotDir: '/img/',
     switchLabel: 'EN', switchName: 'English',
     skip: 'Pular para o conteúdo',
-    nav: { about: 'Sobre', projects: 'Projetos', support: 'Apoie', contact: 'Contato', main: 'Principal' },
+    nav: { about: 'Sobre', projects: 'Projetos', news: 'Novidades', support: 'Apoie', contact: 'Contato', main: 'Principal' },
     footer: {
       blurb: 'Software, serviços digitais e jogos em que engenharia e criatividade se complementam.',
       cols: [
-        { title: 'Ilmenyx Technology', links: [['Sobre', 'about'], ['Projetos', 'projects'], ['Apoie', 'support'], ['Contato', 'contact']] },
+        { title: 'Ilmenyx Technology', links: [['Sobre', 'about'], ['Projetos', 'projects'], ['Novidades', 'news'], ['Apoie', 'support'], ['Contato', 'contact']] },
         { title: 'Ilmenyx Controller', links: [['Visão geral', 'controller'], ['Downloads', RELEASES], ['Código', REPO], ['Relatar um problema', ISSUES]] },
         { title: 'Comunidade', links: [['GitHub', ORG], ['Ko-fi', KOFI], ['E-mail', `mailto:${EMAIL}`]] },
       ],
@@ -178,11 +178,11 @@ export const t = {
     shotDir: '/img/en/',
     switchLabel: 'PT', switchName: 'Português',
     skip: 'Skip to content',
-    nav: { about: 'About', projects: 'Projects', support: 'Support', contact: 'Contact', main: 'Main' },
+    nav: { about: 'About', projects: 'Projects', news: 'What\'s new', support: 'Support', contact: 'Contact', main: 'Main' },
     footer: {
       blurb: 'Software, digital services and games where engineering and creativity complement each other.',
       cols: [
-        { title: 'Ilmenyx Technology', links: [['About', 'about'], ['Projects', 'projects'], ['Support', 'support'], ['Contact', 'contact']] },
+        { title: 'Ilmenyx Technology', links: [['About', 'about'], ['Projects', 'projects'], ['What\'s new', 'news'], ['Support', 'support'], ['Contact', 'contact']] },
         { title: 'Ilmenyx Controller', links: [['Overview', 'controller'], ['Downloads', RELEASES], ['Code', REPO], ['Report a problem', ISSUES]] },
         { title: 'Community', links: [['GitHub', ORG], ['Ko-fi', KOFI], ['Email', `mailto:${EMAIL}`]] },
       ],

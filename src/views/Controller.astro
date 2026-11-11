@@ -3,10 +3,12 @@ import Base from '../layouts/Base.astro';
 import PageHero from '../components/PageHero.astro';
 import SectionHead from '../components/SectionHead.astro';
 import { t, type Lang, REPO, RELEASES, APPIMAGE_URL, APPIMAGE_CMD, FLATPAK_CMD } from '../i18n/strings';
+import { content } from '../i18n/content';
 interface Props { lang: Lang; }
 const { lang } = Astro.props;
 const s = t[lang];
 const c = s.controller;
+const hist = content[lang];
 ---
 <Base lang={lang} page="controller" title={c.meta.title} description={c.meta.description}>
   <PageHero label={c.label} title={c.title} lead={c.lead}>
@@ -58,6 +60,13 @@ const c = s.controller;
         <ul class="feature-list">{c.promises.map((x) => <li>{x}</li>)}</ul>
         <p class="muted">{c.license}</p>
       </div>
+    </div>
+  </section>
+  <section class="sec">
+    <div class="wrap">
+      <SectionHead label={hist.history.label} hint={hist.history.hint} />
+      <h2>{hist.history.title}</h2>
+      <ol class="timeline">{hist.events.map((e) => <li><span class="mono tl-date">{e.date}</span><h3>{e.title}</h3><p class="muted">{e.text}</p></li>)}</ol>
     </div>
   </section>
   <script>

@@ -10,7 +10,7 @@ const p = paths[lang];
 const canonical = new URL(Astro.url.pathname, Astro.site);
 const altUrl = new URL(paths[other][page], Astro.site);
 const link = (target: string) => (target in p ? p[target as Page] : target);
-const navItems: [Page, string][] = [['about', s.nav.about], ['projects', s.nav.projects], ['support', s.nav.support], ['contact', s.nav.contact]];
+const navItems: [Page, string][] = [['about', s.nav.about], ['projects', s.nav.projects], ['news', s.nav.news], ['support', s.nav.support], ['contact', s.nav.contact]];
 const current = (key: Page) => key === page || (key === 'projects' && page === 'controller');
 ---
 <!doctype html>
@@ -41,7 +41,7 @@ const current = (key: Page) => key === page || (key === 'projects' && page === '
   <a class="skip" href="#conteudo">{s.skip}</a>
   <header class="top">
     <div class="wrap">
-      <a class="brand" href={p.home} aria-label="Ilmenyx Technology"><img src="/img/horizontal-fundo-escuro.svg" alt="Ilmenyx Technology" width="105" height="38" /></a>
+      <a class="brand" href={p.home} aria-label="Ilmenyx Technology"><img src="/img/horizontal-fundo-escuro.svg" alt="Ilmenyx Technology" width="138" height="50" /></a>
       <nav class="nav" aria-label={s.nav.main}>
         {navItems.map(([key, label]) => <a href={p[key]} aria-current={current(key) ? 'page' : undefined}>{label}</a>)}
         <a class="lang" href={paths[other][page]} hreflang={other === 'pt' ? 'pt-BR' : 'en'} lang={other === 'pt' ? 'pt-BR' : 'en'} aria-label={s.switchName}>{s.switchLabel}</a>

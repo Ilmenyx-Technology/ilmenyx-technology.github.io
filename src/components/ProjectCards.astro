@@ -1,10 +1,11 @@
 ---
 import { t, paths, type Lang, APPIMAGE_URL, ORG } from '../i18n/strings';
+import { content } from '../i18n/content';
 interface Props { lang: Lang; }
 const { lang } = Astro.props;
 const s = t[lang];
 const c = s.projectsList.controller;
-const n = s.projectsList.next;
+const n = content[lang].next;
 ---
 <div class="lineup">
   <article class="card project">

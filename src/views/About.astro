@@ -2,40 +2,42 @@
 import Base from '../layouts/Base.astro';
 import PageHero from '../components/PageHero.astro';
 import SectionHead from '../components/SectionHead.astro';
-import { t, type Lang } from '../i18n/strings';
+import { type Lang } from '../i18n/strings';
+import { content } from '../i18n/content';
 interface Props { lang: Lang; }
 const { lang } = Astro.props;
-const a = t[lang].about;
-const partColors = ['var(--gold)', 'var(--magenta)', 'var(--gold-pale)'];
+const a = content[lang].about;
+const colors = ['var(--gold)', 'var(--bronze)', 'var(--magenta)', 'var(--indigo)'];
 ---
 <Base lang={lang} page="about" title={a.meta.title} description={a.meta.description}>
   <PageHero label={a.label} title={a.title} lead={a.lead} />
   <section class="sec">
     <div class="wrap">
-      <SectionHead label={a.identity.label} hint={a.identity.hint} />
-      <div class="grid3">{a.cards.map((c) => <div class="card"><h3>{c.title}</h3><p class="muted">{c.text}</p></div>)}</div>
-    </div>
-  </section>
-  <section class="sec">
-    <div class="wrap">
-      <SectionHead label={a.gem.label} hint={a.gem.hint} />
-      <div class="gem-story">
-        <img src="/img/gema-lapidada.svg" alt={lang === 'pt' ? 'A Gema lapidada' : 'The cut Gem'} width="360" height="360" loading="lazy" />
-        <div>
-          <h2>{a.gem.title}</h2>
-          <p class="lead">{a.gem.text}</p>
-          <div class="parts">{a.parts.map((x, i) => <div class="part" style={`--c:${partColors[i]}`}><h3>{x.title}</h3><p class="muted">{x.text}</p></div>)}</div>
+      <SectionHead label={a.story.label} hint={a.story.hint} />
+      <div class="story">
+        <div class="story-card">
+          <div class="avatar" aria-hidden="true">FH</div>
+          <p class="author"><strong>{a.story.name}</strong></p>
+          <p class="muted mono" style="font-size:12px;letter-spacing:.1em;text-transform:uppercase">{a.story.role}</p>
         </div>
+        <div class="story-text">{a.story.paragraphs.map((x) => <p>{x}</p>)}</div>
       </div>
     </div>
   </section>
   <section class="sec">
     <div class="wrap">
-      <SectionHead label={a.timeline.label} hint={a.timeline.hint} />
-      <h2>{a.timeline.title}</h2>
-      <ol class="timeline">
-        {a.events.map((e) => <li><span class="mono tl-date">{e.date}</span><h3>{e.title}</h3><p class="muted">{e.text}</p></li>)}
-      </ol>
+      <SectionHead label={a.name.label} hint={a.name.hint} />
+      <div class="gem-story">
+        <img src="/img/gema-lapidada.svg" alt={lang === 'pt' ? 'A Gema, símbolo da Ilmenyx Technology' : 'The Gem, the Ilmenyx Technology symbol'} width="320" height="320" loading="lazy" />
+        <div><h2>{a.name.title}</h2><p class="lead">{a.name.text}</p></div>
+      </div>
+    </div>
+  </section>
+  <section class="sec">
+    <div class="wrap">
+      <SectionHead label={a.wishes.label} hint={a.wishes.hint} />
+      <h2>{a.wishes.title}</h2>
+      <div class="grid2" style="margin-top:32px">{a.wishList.map((w, i) => <div class="card wish" style={`--c:${colors[i]}`}><h3>{w.title}</h3><p class="muted">{w.text}</p></div>)}</div>
     </div>
   </section>
 </Base>
