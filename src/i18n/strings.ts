@@ -1,6 +1,6 @@
 // All site copy in one place: Portuguese (default, at /) and English (at /en/).
 export type Lang = 'pt' | 'en';
-export type Page = 'home' | 'about' | 'projects' | 'controller' | 'news' | 'support' | 'contact';
+export type Page = 'home' | 'about' | 'projects' | 'controller' | 'news' | 'support' | 'contact' | 'games' | 'studios';
 
 export const REPO = 'https://github.com/Ilmenyx-Technology/ilmenyx-controller';
 export const RELEASES = `${REPO}/releases`;
@@ -19,8 +19,8 @@ export const FLATPAK_CMD = `curl -LO ${FLATPAK_URL} && flatpak install --user Il
 
 /** Address of each page in each language (the header switch keeps the reader on the same page). */
 export const paths: Record<Lang, Record<Page, string>> = {
-  pt: { home: '/', about: '/sobre/', projects: '/projetos/', controller: '/projetos/ilmenyx-controller/', news: '/novidades/', support: '/apoie/', contact: '/contato/' },
-  en: { home: '/en/', about: '/en/about/', projects: '/en/projects/', controller: '/en/projects/ilmenyx-controller/', news: '/en/news/', support: '/en/support/', contact: '/en/contact/' },
+  pt: { home: '/', about: '/sobre/', projects: '/projetos/', controller: '/projetos/ilmenyx-controller/', news: '/novidades/', support: '/apoie/', contact: '/contato/', games: '/jogos/', studios: '/jogos/ilmenyx-studios/' },
+  en: { home: '/en/', about: '/en/about/', projects: '/en/projects/', controller: '/en/projects/ilmenyx-controller/', news: '/en/news/', support: '/en/support/', contact: '/en/contact/', games: '/en/games/', studios: '/en/games/ilmenyx-studios/' },
 };
 
 export const t = {
@@ -29,11 +29,11 @@ export const t = {
     shotDir: '/img/',
     switchLabel: 'EN', switchName: 'English',
     skip: 'Pular para o conteúdo',
-    nav: { about: 'Sobre', projects: 'Projetos', news: 'Novidades', support: 'Apoie', contact: 'Contato', main: 'Principal' },
+    nav: { about: 'Sobre', projects: 'Projetos', games: 'Jogos', news: 'Novidades', support: 'Apoie', contact: 'Contato', main: 'Principal' },
     footer: {
       blurb: 'Software, serviços digitais e jogos em que engenharia e criatividade se complementam.',
       cols: [
-        { title: 'Ilmenyx Technology', links: [['Sobre', 'about'], ['Projetos', 'projects'], ['Novidades', 'news'], ['Apoie', 'support'], ['Contato', 'contact']] },
+        { title: 'Ilmenyx Technology', links: [['Sobre', 'about'], ['Projetos', 'projects'], ['Jogos', 'games'], ['Novidades', 'news'], ['Apoie', 'support'], ['Contato', 'contact']] },
         { title: 'Ilmenyx Controller', links: [['Visão geral', 'controller'], ['Downloads', RELEASES], ['Código', REPO], ['Relatar um problema', ISSUES]] },
         { title: 'Comunidade', links: [['GitHub', ORG], ['Ko-fi', KOFI], ['E-mail', `mailto:${EMAIL}`]] },
       ],
@@ -105,6 +105,25 @@ export const t = {
         { date: '10 nov. 2026', title: 'v0.31', text: 'Nasce o Ilmenyx Controller: três idiomas, nova estimativa de FPS e um app mais leve.' },
         { date: '11 nov. 2026', title: 'v0.32.0', text: 'Repositório público. Área de notificação, aviso de CPU quente e de versão nova.' },
       ],
+    },
+    gamesPage: {
+      meta: { title: 'Jogos — Ilmenyx Technology', description: 'A Ilmenyx Studios é a divisão de jogos da Ilmenyx Technology. O primeiro jogo está em desenvolvimento.' },
+      label: 'Jogos', title: 'Ilmenyx Studios: onde a Ilmenyx vira jogo.',
+      lead: 'A Ilmenyx Studios é a nossa divisão de jogos. Leva para os games o que já guia todo o resto: estrutura para criar e liberdade para explorar.',
+      aboutHead: { label: '01 / O estúdio', hint: 'O que esperar' },
+      points: [
+        { title: 'Mundos para explorar', text: 'Jogos que convidam a descobrir, testar caminhos e voltar para mais uma partida.' },
+        { title: 'Feitos com cuidado técnico', text: 'O mesmo rigor do nosso software: medido, testado em hardware real e sem atalhos.' },
+        { title: 'Independentes, do Brasil', text: 'Um estúdio pequeno, que cresce passo a passo e fala com quem joga.' },
+      ],
+      teaser: { kicker: 'ILMENYX STUDIOS', title: 'O primeiro jogo está em desenvolvimento.', text: 'Ainda não dá para contar o que é. Mas a página do estúdio já está no ar.', cta: 'Entrar na Ilmenyx Studios' },
+    },
+    studios: {
+      meta: { title: 'Ilmenyx Studios — mundos para explorar', description: 'Ilmenyx Studios, a divisão de jogos da Ilmenyx Technology. O primeiro jogo está em desenvolvimento.' },
+      kicker: 'ILMENYX STUDIOS', title: 'Mundos para explorar.',
+      lead: 'A divisão de jogos da Ilmenyx Technology. O primeiro jogo está em desenvolvimento.',
+      press: 'PRESS START · EM BREVE', follow: 'ACOMPANHAR', contact: 'CONTATO',
+      readout: ['SISTEMA', 'ATIVO', 'JOGO 01', 'CARREGANDO'],
     },
     projectsPage: {
       meta: { title: 'Projetos — Ilmenyx Technology', description: 'Os projetos da Ilmenyx Technology, começando pelo Ilmenyx Controller para Linux.' },
@@ -178,11 +197,11 @@ export const t = {
     shotDir: '/img/en/',
     switchLabel: 'PT', switchName: 'Português',
     skip: 'Skip to content',
-    nav: { about: 'About', projects: 'Projects', news: 'What\'s new', support: 'Support', contact: 'Contact', main: 'Main' },
+    nav: { about: 'About', projects: 'Projects', games: 'Games', news: 'What\'s new', support: 'Support', contact: 'Contact', main: 'Main' },
     footer: {
       blurb: 'Software, digital services and games where engineering and creativity complement each other.',
       cols: [
-        { title: 'Ilmenyx Technology', links: [['About', 'about'], ['Projects', 'projects'], ['What\'s new', 'news'], ['Support', 'support'], ['Contact', 'contact']] },
+        { title: 'Ilmenyx Technology', links: [['About', 'about'], ['Projects', 'projects'], ['Games', 'games'], ['What\'s new', 'news'], ['Support', 'support'], ['Contact', 'contact']] },
         { title: 'Ilmenyx Controller', links: [['Overview', 'controller'], ['Downloads', RELEASES], ['Code', REPO], ['Report a problem', ISSUES]] },
         { title: 'Community', links: [['GitHub', ORG], ['Ko-fi', KOFI], ['Email', `mailto:${EMAIL}`]] },
       ],
@@ -254,6 +273,25 @@ export const t = {
         { date: 'Nov 10, 2026', title: 'v0.31', text: 'Ilmenyx Controller is born: three languages, a new FPS estimate and a lighter app.' },
         { date: 'Nov 11, 2026', title: 'v0.32.0', text: 'Public repository. Notification area, hot CPU and new version alerts.' },
       ],
+    },
+    gamesPage: {
+      meta: { title: 'Games — Ilmenyx Technology', description: 'Ilmenyx Studios is the games division of Ilmenyx Technology. The first game is in development.' },
+      label: 'Games', title: 'Ilmenyx Studios: where Ilmenyx becomes play.',
+      lead: 'Ilmenyx Studios is our games division. It brings to games what already guides everything else we do: structure to create and freedom to explore.',
+      aboutHead: { label: '01 / The studio', hint: 'What to expect' },
+      points: [
+        { title: 'Worlds to explore', text: 'Games that invite you to discover, try new paths and come back for one more run.' },
+        { title: 'Built with technical care', text: 'The same rigor as our software: measured, tested on real hardware and no shortcuts.' },
+        { title: 'Independent, from Brazil', text: 'A small studio that grows step by step and talks with the people who play.' },
+      ],
+      teaser: { kicker: 'ILMENYX STUDIOS', title: 'The first game is in development.', text: 'We cannot tell you what it is yet. But the studio page is already live.', cta: 'Enter Ilmenyx Studios' },
+    },
+    studios: {
+      meta: { title: 'Ilmenyx Studios — worlds to explore', description: 'Ilmenyx Studios, the games division of Ilmenyx Technology. The first game is in development.' },
+      kicker: 'ILMENYX STUDIOS', title: 'Worlds to explore.',
+      lead: 'The games division of Ilmenyx Technology. The first game is in development.',
+      press: 'PRESS START · COMING SOON', follow: 'FOLLOW', contact: 'CONTACT',
+      readout: ['SYSTEM', 'ONLINE', 'GAME 01', 'LOADING'],
     },
     projectsPage: {
       meta: { title: 'Projects — Ilmenyx Technology', description: 'Ilmenyx Technology projects, starting with Ilmenyx Controller for Linux.' },

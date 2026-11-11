@@ -10,8 +10,8 @@ const p = paths[lang];
 const canonical = new URL(Astro.url.pathname, Astro.site);
 const altUrl = new URL(paths[other][page], Astro.site);
 const link = (target: string) => (target in p ? p[target as Page] : target);
-const navItems: [Page, string][] = [['about', s.nav.about], ['projects', s.nav.projects], ['news', s.nav.news], ['support', s.nav.support], ['contact', s.nav.contact]];
-const current = (key: Page) => key === page || (key === 'projects' && page === 'controller');
+const navItems: [Page, string][] = [['about', s.nav.about], ['projects', s.nav.projects], ['games', s.nav.games], ['news', s.nav.news], ['support', s.nav.support], ['contact', s.nav.contact]];
+const current = (key: Page) => key === page || (key === 'projects' && page === 'controller') || (key === 'games' && page === 'studios');
 ---
 <!doctype html>
 <html lang={s.htmlLang}>

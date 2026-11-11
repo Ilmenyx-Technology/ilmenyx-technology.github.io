@@ -1,0 +1,61 @@
+---
+import '@fontsource/press-start-2p/400.css';
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import SectionHead from '../components/SectionHead.astro';
+import { t, paths, type Lang } from '../i18n/strings';
+interface Props { lang: Lang; }
+const { lang } = Astro.props;
+const x = t[lang].gamesPage;
+---
+<Base lang={lang} page="games" title={x.meta.title} description={x.meta.description}>
+  <PageHero label={x.label} title={x.title} lead={x.lead} />
+  <section class="sec">
+    <div class="wrap">
+      <SectionHead label={x.aboutHead.label} hint={x.aboutHead.hint} />
+      <div class="grid3">{x.points.map((p) => <div class="card"><h3>{p.title}</h3><p class="muted">{p.text}</p></div>)}</div>
+    </div>
+  </section>
+  <section class="sec">
+    <div class="wrap">
+      <a class="studio-teaser" href={paths[lang].studios}>
+        <div class="txt">
+          <p class="kicker">▶ {x.teaser.kicker}</p>
+          <h2>{x.teaser.title}</h2>
+          <p class="muted">{x.teaser.text}</p>
+          <span class="pxbtn">{x.teaser.cta} <span class="arr">→</span></span>
+        </div>
+        <div class="core" aria-hidden="true">
+          <span class="ring"></span><span class="ring r3"></span>
+          <img src="/img/gema-lapidada.svg" alt="" width="160" height="160" />
+        </div>
+      </a>
+    </div>
+  </section>
+</Base>
+
+<style>
+  /* A small window into the Studios page: same pixel accents and crystal core, inside the regular site. */
+  .studio-teaser { position: relative; display: grid; grid-template-columns: 1fr auto; gap: 40px; align-items: center; padding: 48px; overflow: hidden; color: inherit; text-decoration: none;
+    background: radial-gradient(ellipse at 85% 50%, #1e1638 0, #0d0b14 60%); box-shadow: 0 0 0 1px #ece7ef1f inset; border-radius: var(--r-md, 10px); transition: box-shadow .25s; }
+  .studio-teaser::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: repeating-linear-gradient(0deg, #0000 0 2px, #00000030 2px 4px); }
+  .studio-teaser:hover { text-decoration: none; box-shadow: 0 0 0 1px var(--gold) inset, 0 20px 60px #5a47d633; }
+  .kicker { font: 400 11px 'Press Start 2P', monospace; color: var(--gold); margin: 0 0 18px; }
+  .kicker, .pxbtn { letter-spacing: .04em; }
+  h2 { max-width: 640px; text-shadow: 3px 3px 0 var(--magenta), 6px 6px 0 var(--indigo); }
+  .pxbtn { display: inline-block; margin-top: 12px; font: 400 11px/1.6 'Press Start 2P', monospace; padding: 14px 18px; color: var(--obsidian); background: var(--gold);
+    box-shadow: 0 -4px 0 #a8791a inset, 0 0 0 3px #000, 5px 5px 0 3px var(--magenta); }
+  .pxbtn .arr { font: 700 16px var(--font-text); vertical-align: -1px; margin-left: 4px; }
+  .studio-teaser:hover .pxbtn { background: var(--gold-pale); }
+  .core { position: relative; width: 240px; aspect-ratio: 1; display: grid; place-items: center; }
+  .core img { width: 46%; height: auto; filter: drop-shadow(0 0 22px #f2c14e88); }
+  .ring { position: absolute; inset: 0; border-radius: 50%; border: 2px dashed #5a47d666; animation: spin 40s steps(60) infinite; }
+  .ring.r3 { inset: 16%; border: 3px solid transparent; border-top-color: var(--gold); animation: spin 8s steps(24) infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  @media (max-width: 760px) {
+    .studio-teaser { grid-template-columns: 1fr; padding: 32px 24px; gap: 8px; }
+    .core { order: -1; width: 160px; }
+    h2 { text-shadow: 2px 2px 0 var(--magenta), 4px 4px 0 var(--indigo); }
+  }
+  @media (prefers-reduced-motion: reduce) { .ring { animation: none; } }
+</style>

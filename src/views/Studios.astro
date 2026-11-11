@@ -1,0 +1,76 @@
+---
+import '@fontsource/press-start-2p/400.css';
+import '@fontsource/montserrat/900.css';
+import Base from '../layouts/Base.astro';
+import { t, paths, type Lang } from '../i18n/strings';
+interface Props { lang: Lang; }
+const { lang } = Astro.props;
+const x = t[lang].studios;
+const [sys, on, game, loading] = x.readout;
+---
+<Base lang={lang} page="studios" title={x.meta.title} description={x.meta.description}>
+  <section class="studio">
+    <div class="wrap studio-grid">
+      <div class="intro">
+        <p class="kicker">▶ {x.kicker}</p>
+        <h1>{x.title}</h1>
+        <p class="lead">{x.lead}</p>
+        <p class="press">{x.press}</p>
+        <div class="pxbtns">
+          <a class="pxbtn" href={paths[lang].news}>{x.follow}</a>
+          <a class="pxbtn alt" href={paths[lang].contact}>{x.contact}</a>
+        </div>
+      </div>
+      <div class="art" aria-hidden="true">
+        <span class="ring"></span><span class="ring r3"></span><span class="glow"></span>
+        <span class="br tl"></span><span class="br tr"></span><span class="br bl"></span><span class="br bm"></span>
+        <img src="/img/gema-lapidada.svg" alt="" width="240" height="240" />
+        <p class="readout">{sys} <b>{on}</b> · {game} <b>{loading}</b></p>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  /* Ilmenyx Studios: the brand crystal as an energy core (rings, HUD brackets) with arcade accents (pixel type,
+     stepped shadows, CRT lines). Short on purpose until the first game is announced. */
+  .studio { position: relative; overflow: hidden; min-height: calc(100svh - 77px); display: grid; align-items: center; padding: 72px 0;
+    background: radial-gradient(ellipse at 74% 50%, #1e1638 0, transparent 60%); }
+  .studio::after { content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 3;
+    background: repeating-linear-gradient(0deg, #0000 0 2px, #00000038 2px 4px), radial-gradient(ellipse at center, transparent 62%, #0009); }
+  .studio-grid { position: relative; z-index: 2; display: grid; grid-template-columns: 1.1fr .9fr; gap: 5vw; align-items: center; }
+  .kicker, .press, .pxbtn, .readout { font-family: 'Press Start 2P', monospace; font-weight: 400; letter-spacing: .04em; }
+  .kicker { font-size: 11px; color: var(--gold); margin: 0 0 24px; }
+  h1 { font: 900 clamp(52px, 8.4vw, 128px)/.92 var(--font-brand); letter-spacing: -.02em; color: #fff; margin: 0 0 26px; max-width: 8ch;
+    text-shadow: 4px 4px 0 var(--magenta), 8px 8px 0 var(--indigo); }
+  .lead { max-width: 500px; color: #c9c1d3; }
+  .press { margin: 30px 0 0; font-size: 13px; line-height: 1.6; color: var(--gold-pale); animation: blink 1.1s steps(1) infinite; }
+  .pxbtns { display: flex; flex-wrap: wrap; gap: 18px; margin-top: 24px; }
+  .pxbtn { font-size: 11px; line-height: 1.6; padding: 16px 20px; color: var(--obsidian); background: var(--gold); text-decoration: none;
+    box-shadow: 0 -4px 0 #a8791a inset, 0 0 0 3px #000, 6px 6px 0 3px var(--magenta); transition: transform .12s, box-shadow .12s; }
+  .pxbtn:hover { text-decoration: none; background: var(--gold-pale); }
+  .pxbtn:active { transform: translate(4px, 4px); box-shadow: 0 -4px 0 #a8791a inset, 0 0 0 3px #000, 2px 2px 0 3px var(--magenta); }
+  .pxbtn.alt { background: #1a1626; color: var(--silver); box-shadow: 0 -4px 0 #0008 inset, 0 0 0 3px #000, 0 0 0 4px #ece7ef44; }
+  .pxbtn.alt:hover { background: #241f33; }
+  .art { position: relative; display: grid; place-items: center; aspect-ratio: 1; width: 100%; max-width: 520px; justify-self: center; }
+  .art img { position: relative; width: 46%; height: auto; filter: drop-shadow(0 0 24px #f2c14e88); }
+  .ring { position: absolute; inset: 0; border-radius: 50%; border: 2px dashed #5a47d666; animation: spin 40s steps(60) infinite; }
+  .ring.r3 { inset: 18%; border: 4px solid transparent; border-top-color: var(--gold); border-right-color: #f2c14e44; animation: spin 8s steps(24) infinite; }
+  .glow { position: absolute; inset: 26%; border-radius: 50%; background: radial-gradient(#c8459a66, #5a47d633 50%, transparent 70%); animation: pulse 3s ease-in-out infinite; }
+  .br { position: absolute; width: 28px; height: 28px; border: 4px solid var(--gold); }
+  .tl { top: 3%; left: 3%; border-right: 0; border-bottom: 0; } .tr { top: 3%; right: 3%; border-left: 0; border-bottom: 0; }
+  .bl { bottom: 3%; left: 3%; border-right: 0; border-top: 0; } .bm { bottom: 3%; right: 3%; border-left: 0; border-top: 0; }
+  .readout { position: absolute; bottom: -4%; left: 50%; transform: translateX(-50%); margin: 0; font-size: 9px; color: #9f97ad; white-space: nowrap; }
+  .readout b { color: var(--verdigris); font-weight: 400; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  @keyframes pulse { 50% { transform: scale(1.15); opacity: .6; } }
+  @keyframes blink { 50% { opacity: 0; } }
+  @media (max-width: 860px) {
+    .studio { min-height: 0; padding: 40px 0 64px; }
+    .studio-grid { grid-template-columns: 1fr; gap: 36px; }
+    .art { order: -1; max-width: 300px; }
+    h1 { text-shadow: 3px 3px 0 var(--magenta), 6px 6px 0 var(--indigo); }
+    .readout { font-size: 8px; }
+  }
+  @media (prefers-reduced-motion: reduce) { .ring, .glow, .press { animation: none; } }
+</style>
