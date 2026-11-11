@@ -104,6 +104,7 @@ export const t = {
         { date: '07 nov. 2026', title: 'v0.30.0', text: 'Primeira versão de teste, com pacotes AppImage, Flatpak e assinatura GPG.' },
         { date: '10 nov. 2026', title: 'v0.31', text: 'Nasce o Ilmenyx Controller: três idiomas, nova estimativa de FPS e um app mais leve.' },
         { date: '11 nov. 2026', title: 'v0.32.0', text: 'Repositório público. Área de notificação, aviso de CPU quente e de versão nova.' },
+        { date: '11 nov. 2026', title: 'v0.33.0', text: 'Útil no dia a dia: modo simples, processos com Encerrar, sensores e discos para leigos, partições e Liberar espaço.' },
       ],
     },
     gamesPage: {
@@ -130,12 +131,12 @@ export const t = {
       note: 'Pré-lançamento: validado em hardware real (Intel Iris Xe, AMD Radeon 610M, NVIDIA GeForce 940MX), mas ainda não em todas as distros e placas de vídeo.',
       featuresHead: { label: '01 / Funções', hint: 'Num app só' },
       features: [
-        ['Diagnóstico ao vivo', 'Visão geral, sensores, GPU, energia, rede e processos, lidos direto do kernel; informações dos discos e leitura de relatórios SMART.'],
+        ['Diagnóstico ao vivo', 'Uma primeira tela simples que diz se o PC está bem; sensores explicados, GPU, energia, rede e processos (com Encerrar), lidos direto do kernel; saúde e espaço dos discos.'],
         ['Jogos', 'Biblioteca da Steam, Lutris e Heroic, compatibilidade (ProtonDB, anti-cheat) e estimativa de FPS calibrada no seu PC.'],
         ['Por que o jogo não abre?', 'Confere os motivos mais comuns sem mudar nada e oferece correções de um clique, que podem ser desfeitas.'],
         ['Jogos de Windows', 'Instala jogos de Windows com Proton (umu-launcher) ou com um Wine próprio, sem depender de outro app.'],
         ['Desempenho', 'Benchmarks de CPU, memória, GPU (Vulkan, incluindo ray tracing) e disco; overlay de FPS e testes de estresse com corte por temperatura.'],
-        ['Ferramentas', 'ZRAM, driver NVIDIA, otimizações reversíveis, RGB pelo OpenRGB, apps de inicialização e relatórios em HTML ou JSON.'],
+        ['Ferramentas', 'Liberar espaço com segurança, partições e formatar pendrive, ZRAM, driver NVIDIA, otimizações reversíveis, RGB pelo OpenRGB e relatórios em HTML ou JSON.'],
       ],
       galleryHead: { label: '02 / Por dentro', hint: 'Capturas do app real' },
       shots: [
@@ -265,6 +266,7 @@ export const t = {
         { date: 'Nov 7, 2026', title: 'v0.30.0', text: 'First test release, with AppImage and Flatpak packages and GPG signatures.' },
         { date: 'Nov 10, 2026', title: 'v0.31', text: 'Ilmenyx Controller is born: three languages, a new FPS estimate and a lighter app.' },
         { date: 'Nov 11, 2026', title: 'v0.32.0', text: 'Public repository. Notification area, hot CPU and new version alerts.' },
+        { date: 'Nov 11, 2026', title: 'v0.33.0', text: 'Useful day to day: simple mode, processes with End, sensors and disks for beginners, partitions and Free up space.' },
       ],
     },
     gamesPage: {
@@ -291,12 +293,12 @@ export const t = {
       note: 'Pre-release: validated on real hardware (Intel Iris Xe, AMD Radeon 610M, NVIDIA GeForce 940MX), but not yet on every distro and graphics card.',
       featuresHead: { label: '01 / Features', hint: 'In one app' },
       features: [
-        ['Live diagnostics', 'Overview, sensors, GPU, power, network and processes, read straight from the kernel; disk information and SMART report reading.'],
+        ['Live diagnostics', 'A simple first screen that tells you whether the PC is fine; explained sensors, GPU, power, network and processes (with End), read straight from the kernel; disk health and space.'],
         ['Games', 'Steam, Lutris and Heroic library, compatibility (ProtonDB, anti-cheat) and FPS estimates calibrated on your PC.'],
         ['Why won\'t the game start?', 'Checks the most common causes without changing anything and offers one-click fixes you can undo.'],
         ['Windows games', 'Installs Windows games with Proton (umu-launcher) or its own Wine, without depending on another app.'],
         ['Performance', 'CPU, memory, GPU (Vulkan, including ray tracing) and disk benchmarks; FPS overlay and stress tests that stop on high temperature.'],
-        ['Tools', 'ZRAM, NVIDIA driver, reversible tweaks, RGB through OpenRGB, startup apps and HTML or JSON reports.'],
+        ['Tools', 'Free up space safely, partitions and USB stick formatting, ZRAM, NVIDIA driver, reversible tweaks, RGB through OpenRGB and HTML or JSON reports.'],
       ],
       galleryHead: { label: '02 / Inside', hint: 'Screenshots of the real app' },
       shots: [
