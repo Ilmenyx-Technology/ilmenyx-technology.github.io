@@ -1,0 +1,65 @@
+---
+import '../styles/global.css';
+import { t, type Lang, ORG, REPO, EMAIL } from '../i18n/strings';
+
+interface Props { lang: Lang; title: string; description: string; alternate: string; }
+const { lang, title, description, alternate } = Astro.props;
+const s = t[lang];
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const altUrl = new URL(alternate, Astro.site);
+const home = s.home;
+---
+<!doctype html>
+<html lang={s.htmlLang}>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  <link rel="canonical" href={canonical} />
+  <link rel="alternate" hreflang={lang === 'pt' ? 'pt-BR' : 'en'} href={canonical} />
+  <link rel="alternate" hreflang={lang === 'pt' ? 'en' : 'pt-BR'} href={altUrl} />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:url" content={canonical} />
+  <meta property="og:image" content={new URL('/img/compartilhar.png', Astro.site)} />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="icon" href="/favicon.ico" sizes="48x48" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#100E14" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <meta name="theme-color" content="#100E14" />
+</head>
+<body>
+  <a class="skip" href="#conteudo">{s.skip}</a>
+  <header class="top">
+    <div class="wrap">
+      <a class="brand" href={home} aria-label="Ilmenyx Technology"><img src="/img/horizontal-fundo-escuro.svg" alt="Ilmenyx Technology" width="94" height="34" /></a>
+      <nav class="nav" aria-label={lang === 'pt' ? 'Principal' : 'Main'}>
+        <a href={`${home}#marca`}>{s.nav.brand}</a>
+        <a href={`${home}#produtos`}>{s.nav.products}</a>
+        <a href={`${home}#principios`}>{s.nav.principles}</a>
+        <a href={`${home}#apoie`}>{s.nav.support}</a>
+        <a href={`${home}#contato`}>{s.nav.contact}</a>
+        <a class="lang" href={alternate} hreflang={lang === 'pt' ? 'en' : 'pt-BR'} lang={lang === 'pt' ? 'en' : 'pt-BR'} aria-label={s.other.name}>{s.other.label}</a>
+      </nav>
+    </div>
+  </header>
+  <main id="conteudo">
+    <slot />
+  </main>
+  <footer>
+    <div class="wrap">
+      <img src="/img/horizontal-fundo-escuro.svg" alt="Ilmenyx Technology" width="83" height="30" />
+      <nav aria-label={lang === 'pt' ? 'Rodapé' : 'Footer'}>
+        <a href={ORG}>GitHub</a>
+        <a href={REPO}>Ilmenyx Controller</a>
+        <a href={`mailto:${EMAIL}`}>{EMAIL}</a>
+      </nav>
+      <p style="margin:0">© {new Date().getFullYear()} {s.footer.rights} · {s.footer.privacy}</p>
+    </div>
+  </footer>
+</body>
+</html>

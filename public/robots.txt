@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://ilmenyx-technology.github.io/sitemap.xml
