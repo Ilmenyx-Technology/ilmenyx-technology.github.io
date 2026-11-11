@@ -1,0 +1,34 @@
+---
+import StudiosBase from '../../layouts/StudiosBase.astro';
+import PageHero from '../../components/PageHero.astro';
+import SectionHead from '../../components/SectionHead.astro';
+import { paths, type Lang } from '../../i18n/strings';
+import { st } from '../../i18n/studios';
+interface Props { lang: Lang; }
+const { lang } = Astro.props;
+const x = st[lang].about;
+---
+<StudiosBase lang={lang} page="about" title={x.meta.title} description={x.meta.description}>
+  <PageHero label={x.label} title={x.title} lead={x.lead} />
+  <section class="sec">
+    <div class="wrap">
+      <SectionHead label={x.valuesHead.label} hint={x.valuesHead.hint} />
+      <div class="grid3">{x.values.map((v) => <div class="card"><h3>{v.title}</h3><p class="muted">{v.text}</p></div>)}</div>
+    </div>
+  </section>
+  <section class="sec">
+    <div class="wrap">
+      <SectionHead label={x.parentHead.label} hint={x.parentHead.hint} />
+      <div class="card parent">
+        <img src="/img/horizontal-fundo-escuro.svg" alt="Ilmenyx Technology" width="160" height="58" />
+        <div><p class="muted">{x.parent.text}</p><a class="arrow" href={paths[lang].home}>{x.parent.cta} <span class="arr" aria-hidden="true">→</span></a></div>
+      </div>
+    </div>
+  </section>
+</StudiosBase>
+
+<style>
+  .parent { display: grid; grid-template-columns: auto 1fr; gap: 36px; align-items: center; }
+  .parent img { height: 58px; width: auto; }
+  @media (max-width: 640px) { .parent { grid-template-columns: 1fr; gap: 18px; } }
+</style>

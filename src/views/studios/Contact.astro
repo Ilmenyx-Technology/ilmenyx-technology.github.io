@@ -1,0 +1,15 @@
+---
+import StudiosBase from '../../layouts/StudiosBase.astro';
+import PageHero from '../../components/PageHero.astro';
+import ContactBody from '../../components/ContactBody.astro';
+import { t, type Lang } from '../../i18n/strings';
+import { st } from '../../i18n/studios';
+interface Props { lang: Lang; }
+const { lang } = Astro.props;
+const x = t[lang].contact;
+const meta = st[lang].contact.meta;
+---
+<StudiosBase lang={lang} page="contact" title={meta.title} description={meta.description}>
+  <PageHero label={x.label} title={x.title} lead={x.lead} />
+  <ContactBody lang={lang} />
+</StudiosBase>

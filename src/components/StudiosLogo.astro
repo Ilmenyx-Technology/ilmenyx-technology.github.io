@@ -1,0 +1,20 @@
+---
+// Ilmenyx Studios wordmark (option A): the Ilmenyx crystal, ILMENYX with a stepped arcade shadow and STUDIOS in pixel type.
+interface Props { size?: 'header' | 'footer'; }
+const { size = 'header' } = Astro.props;
+---
+<span class:list={['studios-logo', size]}>
+  <img src="/img/gema-lapidada.svg" alt="" width="40" height="40" />
+  <span class="w"><b>ILMENYX</b><i>STUDIOS</i></span>
+</span>
+
+<style>
+  .studios-logo { display: inline-flex; align-items: center; gap: 11px; color: #fff; line-height: 1; }
+  img { width: 40px; height: 40px; filter: drop-shadow(0 0 10px #f2c14e66); }
+  .w { display: flex; flex-direction: column; }
+  b { font: 900 21px var(--font-brand); letter-spacing: -.01em; text-shadow: 2px 2px 0 var(--magenta), 4px 4px 0 var(--indigo); }
+  i { font: 400 9px 'Press Start 2P', monospace; font-style: normal; color: var(--gold); letter-spacing: .32em; margin-top: 7px; }
+  .footer img { width: 36px; height: 36px; }
+  .footer b { font-size: 19px; }
+  @media (max-width: 860px) { .header img { width: 34px; height: 34px; } .header b { font-size: 18px; } .header i { font-size: 8px; } }
+</style>

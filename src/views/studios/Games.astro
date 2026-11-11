@@ -1,0 +1,45 @@
+---
+import StudiosBase from '../../layouts/StudiosBase.astro';
+import PageHero from '../../components/PageHero.astro';
+import { type Lang } from '../../i18n/strings';
+import { st, games } from '../../i18n/studios';
+interface Props { lang: Lang; }
+const { lang } = Astro.props;
+const x = st[lang].games;
+const list = games[lang];
+---
+<StudiosBase lang={lang} page="games" title={x.meta.title} description={x.meta.description}>
+  <PageHero label={x.label} title={x.title} lead={x.lead} />
+  <section class="sec" style="padding-top:24px">
+    <div class="wrap grid3">
+      {list.length > 0
+        ? list.map((g) => (
+          <article class="card game">
+            {g.image && <img src={g.image} alt="" loading="lazy" />}
+            <p class="slot-tag px">{g.status}</p>
+            <h3>{g.name}</h3>
+            <p class="muted">{g.text}</p>
+            {g.href && <a class="arrow" href={g.href}>{x.more} <span class="arr" aria-hidden="true">→</span></a>}
+          </article>))
+        : x.slots.map((s) => (
+          <article class:list={['card', 'slot', { on: s.on }]}>
+            <p class="slot-tag px">{s.tag}</p>
+            <h3>{s.title}</h3>
+            <p class="muted">{s.text}</p>
+            {s.on && <div class="meter" aria-hidden="true">{Array.from({ length: 12 }, (_, i) => <i class:list={{ lit: i < 5 }}></i>)}</div>}
+          </article>))}
+    </div>
+  </section>
+</StudiosBase>
+
+<style>
+  .slot-tag { font-size: 10px; color: var(--gold); margin-bottom: 14px; }
+  .slot:not(.on) { opacity: .7; }
+  .slot:not(.on) h3 { text-shadow: none; }
+  .game img { width: calc(100% + 56px); margin: -28px -28px 20px; aspect-ratio: 16 / 9; object-fit: cover; }
+  .meter { display: flex; gap: 4px; margin-top: 18px; }
+  .meter i { flex: 1; max-width: 18px; height: 12px; background: #2a2538; }
+  .meter i.lit { background: var(--verdigris); box-shadow: 0 0 8px #2bbfa088; }
+  .meter i.lit:nth-child(5) { animation: studios-blink 1s steps(1) infinite; }
+  @media (prefers-reduced-motion: reduce) { .meter i { animation: none !important; } }
+</style>

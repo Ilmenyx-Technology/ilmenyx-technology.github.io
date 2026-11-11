@@ -1,6 +1,6 @@
 // All site copy in one place: Portuguese (default, at /) and English (at /en/).
 export type Lang = 'pt' | 'en';
-export type Page = 'home' | 'about' | 'projects' | 'controller' | 'news' | 'support' | 'contact' | 'games' | 'studios';
+export type Page = 'home' | 'about' | 'projects' | 'controller' | 'news' | 'support' | 'contact' | 'games';
 
 export const REPO = 'https://github.com/Ilmenyx-Technology/ilmenyx-controller';
 export const RELEASES = `${REPO}/releases`;
@@ -19,8 +19,8 @@ export const FLATPAK_CMD = `curl -LO ${FLATPAK_URL} && flatpak install --user Il
 
 /** Address of each page in each language (the header switch keeps the reader on the same page). */
 export const paths: Record<Lang, Record<Page, string>> = {
-  pt: { home: '/', about: '/sobre/', projects: '/projetos/', controller: '/projetos/ilmenyx-controller/', news: '/novidades/', support: '/apoie/', contact: '/contato/', games: '/jogos/', studios: '/jogos/ilmenyx-studios/' },
-  en: { home: '/en/', about: '/en/about/', projects: '/en/projects/', controller: '/en/projects/ilmenyx-controller/', news: '/en/news/', support: '/en/support/', contact: '/en/contact/', games: '/en/games/', studios: '/en/games/ilmenyx-studios/' },
+  pt: { home: '/', about: '/sobre/', projects: '/projetos/', controller: '/projetos/ilmenyx-controller/', news: '/novidades/', support: '/apoie/', contact: '/contato/', games: '/jogos/' },
+  en: { home: '/en/', about: '/en/about/', projects: '/en/projects/', controller: '/en/projects/ilmenyx-controller/', news: '/en/news/', support: '/en/support/', contact: '/en/contact/', games: '/en/games/' },
 };
 
 export const t = {
@@ -117,13 +117,6 @@ export const t = {
         { title: 'Independentes, do Brasil', text: 'Um estúdio pequeno, que cresce passo a passo e fala com quem joga.' },
       ],
       teaser: { kicker: 'ILMENYX STUDIOS', title: 'O primeiro jogo está em desenvolvimento.', text: 'Ainda não dá para contar o que é. Mas a página do estúdio já está no ar.', cta: 'Entrar na Ilmenyx Studios' },
-    },
-    studios: {
-      meta: { title: 'Ilmenyx Studios — mundos para explorar', description: 'Ilmenyx Studios, a divisão de jogos da Ilmenyx Technology. O primeiro jogo está em desenvolvimento.' },
-      kicker: 'ILMENYX STUDIOS', title: 'Mundos para explorar.',
-      lead: 'A divisão de jogos da Ilmenyx Technology. O primeiro jogo está em desenvolvimento.',
-      press: 'PRESS START · EM BREVE', follow: 'ACOMPANHAR', contact: 'CONTATO',
-      readout: ['SISTEMA', 'ATIVO', 'JOGO 01', 'CARREGANDO'],
     },
     projectsPage: {
       meta: { title: 'Projetos — Ilmenyx Technology', description: 'Os projetos da Ilmenyx Technology, começando pelo Ilmenyx Controller para Linux.' },
@@ -284,14 +277,7 @@ export const t = {
         { title: 'Built with technical care', text: 'The same rigor as our software: measured, tested on real hardware and no shortcuts.' },
         { title: 'Independent, from Brazil', text: 'A small studio that grows step by step and talks with the people who play.' },
       ],
-      teaser: { kicker: 'ILMENYX STUDIOS', title: 'The first game is in development.', text: 'We cannot tell you what it is yet. But the studio page is already live.', cta: 'Enter Ilmenyx Studios' },
-    },
-    studios: {
-      meta: { title: 'Ilmenyx Studios — worlds to explore', description: 'Ilmenyx Studios, the games division of Ilmenyx Technology. The first game is in development.' },
-      kicker: 'ILMENYX STUDIOS', title: 'Worlds to explore.',
-      lead: 'The games division of Ilmenyx Technology. The first game is in development.',
-      press: 'PRESS START · COMING SOON', follow: 'FOLLOW', contact: 'CONTACT',
-      readout: ['SYSTEM', 'ONLINE', 'GAME 01', 'LOADING'],
+      teaser: { kicker: 'ILMENYX STUDIOS', title: 'The first game is in development.', text: 'We cannot tell you what it is yet. But the studio website is already live.', cta: 'Enter Ilmenyx Studios' },
     },
     projectsPage: {
       meta: { title: 'Projects — Ilmenyx Technology', description: 'Ilmenyx Technology projects, starting with Ilmenyx Controller for Linux.' },

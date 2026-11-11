@@ -1,0 +1,43 @@
+---
+// Page behavior shared by both brands: reveal on scroll, copy buttons and the phone menu.
+---
+<script>
+  // Sections ease in as they reach the screen; cards in a row follow one another. Nothing hides without JS
+  // or for people who asked the system for less motion.
+  if (!matchMedia('(prefers-reduced-motion: reduce)').matches && 'IntersectionObserver' in window) {
+    const items = document.querySelectorAll<HTMLElement>('main .sec .sechead, main .sec h2, main .sec .lead, main .sec .card, main .sec .principle, main .sec .news-item, main .sec .quote, main .sec .steps, main .sec .timeline li, main .sec .story-text p, main .sec .gem-story img, main .join-box, main .gallery figure');
+    const seen = new IntersectionObserver((entries) => {
+      for (const e of entries) if (e.isIntersecting) { e.target.classList.add('in'); seen.unobserve(e.target); }
+    }, { rootMargin: '0px 0px -8% 0px', threshold: 0.12 });
+    items.forEach((el) => {
+      const siblings = el.parentElement ? Array.from(el.parentElement.children) : [];
+      el.style.setProperty('--d', `${Math.min(siblings.indexOf(el), 5) * 90}ms`);
+      el.classList.add('rv');
+      seen.observe(el);
+    });
+  }
+</script>
+<script>
+  // Copy buttons (terminal commands, Pix key): nothing is sent anywhere.
+  document.querySelectorAll<HTMLButtonElement>('button.copy').forEach((b) => {
+    const label = b.textContent;
+    b.addEventListener('click', async () => {
+      try { await navigator.clipboard.writeText(b.dataset.copy ?? ''); b.textContent = b.dataset.done ?? label; setTimeout(() => (b.textContent = label), 1800); } catch { /* clipboard blocked: the text stays selectable */ }
+    });
+  });
+</script>
+<script>
+  // Phone menu: the toggle opens the page list as a panel; a choice, Escape or a wider window closes it.
+  const top = document.querySelector<HTMLElement>('.top');
+  const toggle = document.querySelector<HTMLButtonElement>('.menu-toggle');
+  const setOpen = (open: boolean) => {
+    if (!top || !toggle) return;
+    top.classList.toggle('open', open);
+    toggle.setAttribute('aria-expanded', String(open));
+    toggle.setAttribute('aria-label', (open ? toggle.dataset.close : toggle.dataset.open) ?? '');
+  };
+  toggle?.addEventListener('click', () => setOpen(!top?.classList.contains('open')));
+  document.querySelectorAll('#menu a').forEach((a) => a.addEventListener('click', () => setOpen(false)));
+  addEventListener('keydown', (e) => { if (e.key === 'Escape' && top?.classList.contains('open')) { setOpen(false); toggle?.focus(); } });
+  matchMedia('(min-width: 861px)').addEventListener('change', (m) => { if (m.matches) setOpen(false); });
+</script>

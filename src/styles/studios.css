@@ -1,0 +1,52 @@
+/* Ilmenyx Studios theme (option E): the Ilmenyx base with arcade accents. Pixel type for labels, navigation and
+   buttons; stepped magenta and indigo shadows on headings; faint CRT lines; cards with the oxide edge. Applies only
+   under body.studios, so the Ilmenyx Technology pages stay as they are. */
+.studios { background: radial-gradient(ellipse 80% 50% at 70% 0, #1e1638 0, transparent 70%), var(--obsidian); }
+.studios .px, .studios .eyebrow, .studios .nav a, .studios .sechint, .studios .arrow, .studios .btn, .studios .foot-title, .studios .foot-brand .tagline {
+  font-family: 'Press Start 2P', monospace; font-weight: 400; letter-spacing: .04em; }
+
+/* Header and footer */
+.studios .top { background: rgba(13,11,20,.86); }
+.studios .brand { text-decoration: none; }
+.studios .brand .studios-logo img, .studios .foot-brand .studios-logo img { height: 40px; width: 40px; margin: 0; }
+.studios .nav a { font-size: 10px; letter-spacing: .06em; padding: 8px 2px; }
+.studios .nav a[aria-current='page'] { color: var(--gold); border-bottom-color: transparent; text-shadow: 2px 2px 0 #c8459a88; }
+.studios .nav a[aria-current='page']::before { content: '▶ '; color: var(--verdigris); }
+.studios .nav a.lang { font-size: 9px; }
+.studios .foot-brand .studios-logo { margin-bottom: 18px; }
+.studios .foot-title { font-size: 9px; line-height: 1.6; }
+.studios .foot-brand .tagline { font-size: 9px; line-height: 1.8; color: var(--gold); }
+@media (max-width: 860px) {
+  .studios .nav a { font-size: 12px; padding: 18px 0; }
+  .studios .brand .studios-logo img { height: 34px; width: 34px; }
+  .studios .nav a.lang { padding: 12px 16px; line-height: 1; }
+}
+
+/* Page openings and headings */
+.studios .pagehero { position: relative; }
+.studios .pagehero::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: repeating-linear-gradient(0deg, #0000 0 2px, #0000002e 2px 4px); }
+.studios .pagehero .diamonds span { border-style: dashed; }
+.studios .eyebrow { font-size: 11px; letter-spacing: .06em; }
+.studios .eyebrow::before { content: '▶ '; color: var(--verdigris); }
+.studios h1 { font-weight: 900; text-shadow: 3px 3px 0 var(--magenta), 6px 6px 0 var(--indigo); }
+.studios h2 { text-shadow: 2px 2px 0 var(--magenta), 4px 4px 0 var(--indigo); }
+.studios .sechint { font-size: 9px; }
+
+/* Cards and links */
+.studios .card { position: relative; overflow: hidden; border-radius: 6px; background: linear-gradient(160deg, #1a1626, #100e16); border-color: #ece7ef14; }
+.studios .card::before { content: ""; position: absolute; inset: 0 0 auto; height: 3px; background: linear-gradient(90deg, var(--gold), var(--magenta), var(--indigo)); }
+.studios .arrow { font-size: 10px; line-height: 1.8; color: var(--gold); }
+.studios .arrow .arr { font: 700 15px var(--font-text); }
+
+/* Buttons: chunky pixel keys that press down */
+.studios .btn { font-size: 11px; line-height: 1.6; border: 0; border-radius: 0; padding: 16px 20px; color: var(--silver); background: #1a1626;
+  box-shadow: 0 -4px 0 #0008 inset, 0 0 0 3px #000, 0 0 0 4px #ece7ef44; transition: transform .12s, box-shadow .12s; }
+.studios .btn:hover { background: #241f33; }
+.studios .btn.primary { color: var(--obsidian); background: var(--gold); box-shadow: 0 -4px 0 #a8791a inset, 0 0 0 3px #000, 6px 6px 0 3px var(--magenta); }
+.studios .btn.primary:hover { background: var(--gold-pale); }
+.studios .btn:active { transform: translate(3px, 3px); }
+.studios .btns { gap: 18px; }
+
+@keyframes studios-blink { 50% { opacity: 0; } }
+.studios .blink { animation: studios-blink 1.1s steps(1) infinite; }
+@media (prefers-reduced-motion: reduce) { .studios .blink { animation: none; } }

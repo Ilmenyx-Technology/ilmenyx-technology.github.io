@@ -1,0 +1,32 @@
+---
+// Donation and help sections, shared by the Ilmenyx Technology and Ilmenyx Studios support pages.
+import SectionHead from './SectionHead.astro';
+import { t, type Lang, KOFI, PIX } from '../i18n/strings';
+interface Props { lang: Lang; }
+const { lang } = Astro.props;
+const x = t[lang].support;
+---
+<section class="sec">
+  <div class="wrap">
+    <SectionHead label={x.donateHead.label} hint={x.donateHead.hint} />
+    <div class="grid2">
+      <div class="card">
+        <h3>{x.kofi.title}</h3>
+        <p class="muted">{x.kofi.text}</p>
+        <a class="btn primary" href={KOFI}>{x.kofi.cta}</a>
+        <p class="muted" style="margin-top:20px">{x.sponsors}</p>
+      </div>
+      <div class="card support">
+        <img class="qr" src="/img/pix-qrcode.png" alt={x.pix.qrAlt} width="168" height="168" />
+        <div><h3>{x.pix.title}</h3><p class="muted">{x.pix.text}</p></div>
+        <div class="cmd pix-key"><code>{PIX}</code><button type="button" class="copy" data-copy={PIX} data-done={t[lang].controller.copied}>{t[lang].controller.copy}</button></div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="sec">
+  <div class="wrap">
+    <SectionHead label={x.helpHead.label} hint={x.helpHead.hint} />
+    <div class="grid3">{x.help.map((h) => <div class="card"><h3>{h.title}</h3><p class="muted">{h.text}</p><a class="arrow" href={h.href}>{h.cta} <span class="arr" aria-hidden="true">→</span></a></div>)}</div>
+  </div>
+</section>

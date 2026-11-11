@@ -1,0 +1,10 @@
+---
+// Contact cards, shared by the Ilmenyx Technology and Ilmenyx Studios contact pages.
+import { t, type Lang } from '../i18n/strings';
+interface Props { lang: Lang; }
+const { lang } = Astro.props;
+const x = t[lang].contact;
+---
+<section class="sec" style="padding-top:24px">
+  <div class="wrap grid3">{x.cards.map((c) => <div class="card"><h3>{c.title}</h3><p class="muted">{c.text}</p><a class="arrow" href={c.href}>{c.cta} <span class="arr" aria-hidden="true">→</span></a></div>)}</div>
+</section>

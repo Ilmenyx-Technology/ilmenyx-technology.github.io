@@ -1,14 +1,13 @@
 ---
-import '@fontsource/press-start-2p/400.css';
-import '@fontsource/montserrat/900.css';
-import Base from '../layouts/Base.astro';
-import { t, paths, type Lang } from '../i18n/strings';
+import StudiosBase from '../../layouts/StudiosBase.astro';
+import { type Lang } from '../../i18n/strings';
+import { st, spaths } from '../../i18n/studios';
 interface Props { lang: Lang; }
 const { lang } = Astro.props;
-const x = t[lang].studios;
+const x = st[lang].home;
 const [sys, on, game, loading] = x.readout;
 ---
-<Base lang={lang} page="studios" title={x.meta.title} description={x.meta.description}>
+<StudiosBase lang={lang} page="home" title={x.meta.title} description={x.meta.description}>
   <section class="studio">
     <div class="wrap studio-grid">
       <div class="intro">
@@ -17,8 +16,8 @@ const [sys, on, game, loading] = x.readout;
         <p class="lead">{x.lead}</p>
         <p class="press">{x.press}</p>
         <div class="pxbtns">
-          <a class="pxbtn" href={paths[lang].news}>{x.follow}</a>
-          <a class="pxbtn alt" href={paths[lang].contact}>{x.contact}</a>
+          <a class="pxbtn" href={spaths[lang].games}>{x.primary}</a>
+          <a class="pxbtn alt" href={spaths[lang].about}>{x.secondary}</a>
         </div>
       </div>
       <div class="art" aria-hidden="true">
@@ -29,7 +28,7 @@ const [sys, on, game, loading] = x.readout;
       </div>
     </div>
   </section>
-</Base>
+</StudiosBase>
 
 <style>
   /* Ilmenyx Studios: the brand crystal as an energy core (rings, HUD brackets) with arcade accents (pixel type,

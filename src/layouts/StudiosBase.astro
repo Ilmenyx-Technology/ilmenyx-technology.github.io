@@ -1,0 +1,62 @@
+---
+import '../styles/global.css';
+import '../styles/studios.css';
+import '@fontsource/press-start-2p/400.css';
+import '@fontsource/montserrat/900.css';
+import SiteHead from '../components/SiteHead.astro';
+import SiteScripts from '../components/SiteScripts.astro';
+import StudiosLogo from '../components/StudiosLogo.astro';
+import { t, type Lang } from '../i18n/strings';
+import { st, spaths, type StudioPage } from '../i18n/studios';
+
+interface Props { lang: Lang; page: StudioPage; title: string; description: string; }
+const { lang, page, title, description } = Astro.props;
+const s = t[lang];
+const x = st[lang];
+const other: Lang = lang === 'pt' ? 'en' : 'pt';
+const p = spaths[lang];
+const link = (target: string) => (target in p ? p[target as StudioPage] : target);
+const navItems: [StudioPage, string][] = [['about', x.nav.about], ['games', x.nav.games], ['support', x.nav.support], ['contact', x.nav.contact]];
+---
+<!doctype html>
+<html lang={s.htmlLang}>
+<head>
+  <SiteHead htmlLang={lang === 'pt' ? 'pt-BR' : 'en'} otherLang={other === 'pt' ? 'pt-BR' : 'en'} title={title} description={description} altPath={spaths[other][page]} />
+</head>
+<body class="studios">
+  <a class="skip" href="#conteudo">{s.skip}</a>
+  <header class="top">
+    <div class="wrap">
+      <a class="brand" href={p.home} aria-label={x.nav.home}><StudiosLogo /></a>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="menu" aria-label={lang === 'pt' ? 'Abrir menu' : 'Open menu'} data-open={lang === 'pt' ? 'Abrir menu' : 'Open menu'} data-close={lang === 'pt' ? 'Fechar menu' : 'Close menu'}><span></span><span></span><span></span></button>
+      <nav class="nav" id="menu" aria-label={x.nav.main}>
+        {navItems.map(([key, label]) => <a href={p[key]} aria-current={key === page ? 'page' : undefined}>{label}</a>)}
+        <a class="lang" href={spaths[other][page]} hreflang={other === 'pt' ? 'pt-BR' : 'en'} lang={other === 'pt' ? 'pt-BR' : 'en'} aria-label={s.switchName}>{s.switchLabel}</a>
+      </nav>
+    </div>
+  </header>
+  <main id="conteudo">
+    <slot />
+  </main>
+  <footer class="foot">
+    <div class="wrap foot-grid">
+      <div class="foot-brand">
+        <StudiosLogo size="footer" />
+        <p>{x.footer.blurb}</p>
+        <p class="tagline">{x.footer.tagline}</p>
+      </div>
+      {x.footer.cols.map((col) => (
+        <nav aria-label={col.title}>
+          <p class="foot-title">{col.title}</p>
+          <ul>{col.links.map(([label, target]) => <li><a href={link(target)}>{label}</a></li>)}</ul>
+        </nav>
+      ))}
+    </div>
+    <div class="wrap foot-bottom">
+      <span>© {new Date().getFullYear()} Ilmenyx Technology</span>
+      <span>{x.footer.privacy}</span>
+    </div>
+  </footer>
+  <SiteScripts />
+</body>
+</html>

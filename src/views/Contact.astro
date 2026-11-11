@@ -1,6 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 import PageHero from '../components/PageHero.astro';
+import ContactBody from '../components/ContactBody.astro';
 import { t, type Lang } from '../i18n/strings';
 interface Props { lang: Lang; }
 const { lang } = Astro.props;
@@ -8,7 +9,5 @@ const x = t[lang].contact;
 ---
 <Base lang={lang} page="contact" title={x.meta.title} description={x.meta.description}>
   <PageHero label={x.label} title={x.title} lead={x.lead} />
-  <section class="sec" style="padding-top:24px">
-    <div class="wrap grid3">{x.cards.map((c) => <div class="card"><h3>{c.title}</h3><p class="muted">{c.text}</p><a class="arrow" href={c.href}>{c.cta} →</a></div>)}</div>
-  </section>
+  <ContactBody lang={lang} />
 </Base>
