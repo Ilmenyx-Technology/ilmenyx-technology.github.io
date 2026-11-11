@@ -90,9 +90,6 @@ const rings = [60, 76, 92, 108, 124, 140];
   </div>
   <div class="hero-fade" aria-hidden="true"></div>
 
-  <div class="ruler" aria-hidden="true">
-    <span>0</span><span>5</span><span>10</span>
-  </div>
 </section>
 
 <script>
@@ -273,23 +270,6 @@ const rings = [60, 76, 92, 108, 124, 140];
     background-position: var(--position) 0;
   }
   .terrace::after { height: 5px; filter: blur(7px); opacity: .65; }
-  .ruler {
-    position: absolute;
-    z-index: 3;
-    top: 50%;
-    right: 16px;
-    width: 28px;
-    height: 401px;
-    transform: translateY(-50%);
-    border-right: 1px solid #5e5868;
-    background: repeating-linear-gradient(to bottom, #5e5868 0 1px, transparent 1px 40px) right top / 7px 100% no-repeat;
-    color: #5e5868;
-    font: 400 10px/1 'IBM Plex Mono', monospace;
-    pointer-events: none;
-  }
-  .ruler span { position: absolute; right: 11px; top: 0; }
-  .ruler span:nth-child(2) { top: 200px; }
-  .ruler span:nth-child(3) { top: 400px; }
 
   @keyframes cut-reveal { from { opacity: 0; } to { opacity: 1; } }
   @keyframes ignite {
@@ -313,8 +293,6 @@ const rings = [60, 76, 92, 108, 124, 140];
     .hero-actions { justify-content: center; }
     .terraces { height: 140px; }
     .terrace { height: calc(var(--height) * .6); }
-    .ruler { right: 6px; width: 18px; }
-    .ruler span { right: 9px; font-size: 8px; }
   }
   @media (prefers-reduced-motion: reduce) {
     .hero-crystal *, .hero-crystal *::before, .hero-crystal *::after {
